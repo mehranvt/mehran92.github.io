@@ -8,7 +8,7 @@ image: "image.jpg"
 
 **Classification Post**
 
-Import the required libraries
+Import the required librariesundefined
 
 ```{python}
 import pandas as pd
