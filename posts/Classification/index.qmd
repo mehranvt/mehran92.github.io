@@ -1,13 +1,268 @@
 ---
-title: "Post With Code"
-author: "Harlow Malloc"
+title: "Classification"
+author: "Mehran Islam"
 date: "2023-12-07"
-categories: [news, code, analysis]
+categories: [code, analysis]
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+**Classification Post**
 
-```{r}
-1 + 1
+Import the required libraries
+
+```{python}
+import pandas as pd
+```
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as pl
+import seaborn as sns
+
+```
+
+Read data from file and identify null values
+
+```{python}
+data=pd.read_csv('athlete_events.csv', index_col="ID")
+```
+
+```{data.apply(pd.isnull).sum()/data.shape[0]}
+```
+
+```{python}
+athletes= data[["Team","Sex", "Season","Sport","Medal"]].copy()
+
+#converting into column
+athletes.columns = ["country","sex","season", "sport","medal"]
+
+athletes
+```
+
+```{python}
+athletes.apply(pd.isnull).sum()/athletes.shape[0]
+```
+
+```{python}
+athletes = athletes[athletes['medal'].isin(['Gold', 'Silver', 'Bronze'])].dropna(subset=['medal'])
+
+```
+
+```{python}
+athletes
+```
+
+```{python}
+# here we see a high percentage of null values in medal because only some of the athletes win the medal
+
+# Create a new DataFrame with the converted 'target' column
+new_athletes = athletes.copy()  # Make a copy to avoid modifying the original DataFrame
+
+# Convert the 'medal' column to 'target' based on the medal values
+new_athletes['target'] = new_athletes['medal'].apply(lambda x: 'gold' if x =='Gold' else 'no gold')
+```
+
+```{python}
+new_athletes
+```
+
+```{python}
+#I just want to include four sports in which US generally do good
+
+selected_sports = ['Swimming']
+
+recent_athletes = new_athletes[new_athletes['sport'].isin(selected_sports)]
+```
+
+```{python}
+recent_athletes.apply(pd.isnull).sum()
+recent_athletes
+```
+
+```{python}
+#lets drop silver medals and gold medals because we are only interested in Gold medals
+
+#athletes = athletes[athletes['medal'] == 'Gold'].dropna(subset=['medal'])
+```
+
+```{python}
+# Create a new DataFrame with the converted columns
+players = recent_athletes.copy()  # Make a copy to avoid modifying the original DataFrame
+
+# Convert the 'country' column to numerical values
+players['country'] = (recent_athletes['country'] == 'United States').astype(int)
+
+# Convert the 'sex' column to numerical values
+players['sex'] = (recent_athletes['sex'] == 'M').astype(int)
+
+
+# Convert the 'season' column to numerical values
+players['season'] = (recent_athletes['season'] == 'Summer').astype(int)
+
+# Convert the 'sport' column to numerical values
+players['sport'] = (recent_athletes['sport'] == 'Swimming').astype(int)
+```
+
+```{python}
+#since we are only interested in swimming data let's drop others
+
+#athletes = athletes[athletes['sport'] == 'Swimming'].dropna(subset=['sport'])
+```
+
+```{python}
+players
+```
+
+```{python}
+# Split the data into features (X) and the target variable (y)
+# to preapre data for ML ready
+
+from sklearn.model_selection import train_test_split
+X = players[['country','sport', 'sex']]
+y = players['target']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=42)
+
+players
+```
+
+```{python}
+X_test.shape
+```
+
+```{python}
+sns.countplot(data=players, x='target')
+pl.title('Distribution of Target')
+pl.show()
+```
+
+```{python}
+# to train the naive model as out target is to use naive bayes model
+
+# we use gaussian naive bayes
+
+from sklearn.naive_bayes import GaussianNB
+
+# Create a Gaussian Naive Bayes model
+nb_model = GaussianNB()
+
+# Train the model on the training data
+nb_model.fit(X_train, y_train)
+```
+
+```{python}
+# now evaluating the model 
+
+
+from sklearn.metrics import accuracy_score, classification_report
+
+# Predict on the test data
+y_pred = nb_model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# Generate a classification report
+report = classification_report(y_test, y_pred)
+print("Classification Report:\n", report)
+```
+
+```{python}
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.model_selection import train_test_split
+
+# Assuming you have already trained your Naive Bayes model (nb_model) and split your data into training (X_train, y_train) and testing (X_test, y_test) sets.
+
+# Example data (replace with your actual data)
+# X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
+# nb_model = MultinomialNB()
+# nb_model.fit(X_train, y_train)
+
+# Predict on the test data
+y_pred = nb_model.predict(X_test)
+
+# Create a confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+
+# Create a heatmap using seaborn
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=np.unique(y_test), yticklabels=np.unique(y_test))
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
+```
+
+```{python}
+# Assuming you have the classification report stored in the 'report' variable
+report = classification_report(y_test, y_pred, output_dict=True)
+
+# Convert the classification report to a DataFrame for easier plotting
+players_report = pd.DataFrame(report).transpose()
+
+# Create a horizontal bar chart using Seaborn
+pl.figure(figsize=(8, 4))
+sns.set(style="whitegrid")
+sns.set_palette("pastel")
+ax = sns.barplot(x=players_report['f1-score'], y=players_report.index, orient="h")
+ax.set(xlabel='F1-Score', ylabel='Metric')
+pl.title('Classification Report Metrics')
+pl.show()
+```
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import precision_recall_curve, roc_curve, auc
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import label_binarize
+
+# Assuming you have already trained your Naive Bayes model (nb_model) and split your data into training (X_train, y_train) and testing (X_test, y_test) sets.
+
+# Example data (replace with your actual data)
+# X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
+# nb_model = MultinomialNB()
+# nb_model.fit(X_train, y_train)
+
+# Predict probabilities on the test data
+y_probs = nb_model.predict_proba(X_test)[:, 1]
+
+# Binarize the target variable
+y_test_binary = label_binarize(y_test, classes=np.unique(y_test))
+
+# Calculate precision-recall curve
+precision, recall, _ = precision_recall_curve(y_test_binary, y_probs)
+
+# Calculate ROC curve
+fpr, tpr, _ = roc_curve(y_test_binary, y_probs)
+
+# Calculate area under the curves (AUC)
+pr_auc = auc(recall, precision)
+roc_auc = auc(fpr, tpr)
+
+# Plot Precision-Recall curve
+plt.figure(figsize=(8, 6))
+plt.plot(recall, precision, color='darkorange', lw=2, label=f'PR Curve (AUC = {pr_auc:.2f})')
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision-Recall Curve')
+plt.legend(loc='best')
+plt.show()
+
+# Plot ROC curve
+plt.figure(figsize=(8, 6))
+plt.plot(fpr, tpr, color='darkblue', lw=2, label=f'ROC Curve (AUC = {roc_auc:.2f})')
+plt.plot([0, 1], [0, 1], color='gray', lw=1, linestyle='--')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc='best')
+plt.show()
 ```
