@@ -1,13 +1,283 @@
 ---
-title: "Post With Code"
-author: "Harlow Malloc"
+title: "Outlier"
+author: "Mehran Islam"
 date: "2023-12-07"
-categories: [news, code, analysis]
+categories: [code, analysis]
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+Importing libraries
 
-```{r}
-1 + 1
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as pl
+import seaborn as sns
+```
+
+Read the data
+
+```{python}
+import pandas as pd
+
+# Read the data
+data = pd.read_csv('Cricket_data.csv', sep='\t')
+
+# Display the first few rows of the data
+data
+```
+
+Identify null data
+
+```{python}
+data.apply(pd.isnull).sum()/data.shape[0]
+```
+
+```{python}
+data.describe(include='object')
+```
+
+```{python}
+cricket=data[["Player","Span","Mat","Inn","Runs","Highest_Score","Avg","100","50"]].copy()
+cricket.columns=["player","span","mat","inn","runs","HS","avg","100","50"]
+cricket.head()
+```
+
+converting to numerical int data
+
+```{python}
+# Convert the 'runs' column to a numeric data type (int)
+cricket['runs'] = cricket['runs'].str.replace(',', '', regex=True).str.extract('(\d+)').astype(float)
+
+# Filter the data to select players with more than 5000 runs
+batsman = cricket[cricket['runs'] > 2000]
+
+# Display the filtered data in column form
+batsman.head()
+```
+
+```{python}
+# Use .loc to update the 'Player' column
+batsman.loc[:, 'player'] = batsman['player'].str.replace(r'\s*\(.*\)', '', regex=True)
+
+# Display the DataFrame with the country names removed
+
+batsman.tail()
+```
+
+```{python}
+# List of names to delete
+names_to_delete = ['SR Tendulkar', 'DG Bradman']
+
+# Filter out rows with the specified names
+batsman = batsman[~batsman['player'].isin(names_to_delete)]
+
+batsman.head()
+```
+
+```{python}
+#to save the players name for future 
+player = batsman['player'].tolist()
+```
+
+```{python}
+# Split the 'span' values into start and end years
+batsman[['Start_Year', 'End_Year']] = batsman['span'].str.split('-', expand=True).astype(int)
+
+# Calculate the duration in years
+batsman['Span_yrs'] = batsman['End_Year'] - batsman['Start_Year'] + 1  # Adding 1 to include both start and end years
+
+# Display the DataFrame with the duration calculated
+batsman
+```
+
+```{python}
+#sns.pairplot(batsman)
+#pl.show()
+```
+
+```{python}
+batsman = batsman.drop(['player'], axis = 1)
+batsman.head()
+```
+
+```{python}
+columns=["runs","avg","100"]
+```
+
+```{python}
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.decomposition import PCA
+
+# Initialize PCA with the number of components you want to retain
+n_components = 2  # Adjust as needed
+pca = PCA(n_components=n_components)
+
+# Initialize the MinMaxScaler
+scaler = MinMaxScaler()
+
+# Apply Min-Max scaling to your data
+scaled_data = scaler.fit_transform(batsman[columns])
+
+# Fit and transform PCA on the scaled data
+batter = pca.fit_transform(scaled_data)
+
+batter
+```
+
+```{python}
+explained_variance = pca.explained_variance_ratio_
+print("Explained variance ratio:", explained_variance)
+```
+
+```{python}
+pl.scatter(batter[:, 0], batter[:, 1])
+pl.xlabel('Principal Component 1')
+pl.ylabel('Principal Component 2')
+pl.title('PCA Results')
+pl.show()
+
+```
+
+```{python}
+component_loadings = pca.components_
+print("Principal component loadings:", component_loadings)
+```
+
+```{python}
+from sklearn.cluster import DBSCAN
+from sklearn.metrics import silhouette_score
+
+
+# Your data
+X = batter  # Your data points
+
+best_eps = None
+best_min_samples = None
+best_score = -1
+
+for eps in np.arange(0.1, 1.0, 0.1):  # Adjust the range as needed
+    for min_samples in range(2, 11):  # Adjust the range as needed
+        dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+        labels = dbscan.fit_predict(X)
+        if len(set(labels)) > 1:  # Ensure more than one cluster is formed
+            score = silhouette_score(X, labels)
+            if score > best_score:
+                best_score = score
+                best_eps = eps
+                best_min_samples = min_samples
+
+print(f"Best eps: {best_eps}, Best min_samples: {best_min_samples}, Best Silhouette Score: {best_score}")
+```
+
+```{python}
+from sklearn.cluster import DBSCAN
+
+# Initialize DBSCAN
+dbscan = DBSCAN(eps=0.2, min_samples=2)
+
+# Fit DBSCAN on the PCA-transformed data
+cluster_labels = dbscan.fit_predict(batter)
+
+
+pl.scatter(batter[:, 0], batter[:, 1], c=cluster_labels, cmap='viridis')
+pl.xlabel('Principal Component 1')
+pl.ylabel('Principal Component 2')
+pl.title('DBSCAN Clustering Results')
+pl.show()
+```
+
+```{python}
+# Assuming 'player' contains the player names and 'cluster_labels' contains the cluster assignments
+# Create a new DataFrame to combine the results
+new_batsman = pd.DataFrame({'x': batter[:, 0], 'y': batter[:, 1], 'cluster': cluster_labels, 'player': player})
+
+# Display the resulting DataFrame
+new_batsman
+```
+
+```{python}
+# Create a scatter plot with cluster labels
+pl.figure(figsize=(10, 6))
+ax = sns.scatterplot(x="x", y="y", hue="cluster", data=new_batsman, palette="viridis", s=100)
+
+# Add labels for individual data points
+for x, y, player, cluster in zip(new_batsman['x'], new_batsman['y'], new_batsman['player'], new_batsman['cluster']):
+    pl.text(x, y, player, fontsize=10, alpha=0.8)
+
+# Set the plot limits and labels
+ax.set(ylim=(-3, 3))
+pl.xlabel("Principal Component 1", fontsize=15)
+pl.ylabel("Principal Component 2", fontsize=15)
+
+# Show the legend
+pl.legend(title='Cluster', loc='upper right', labels=[f'Cluster {label}' for label in new_batsman['cluster'].unique()])
+
+# Display the plot
+pl.show()
+```
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
+
+# Set the style
+sns.set(style="white")
+
+# Normalize the "average" values
+scaler = MinMaxScaler()
+batsman['avg_normalized'] = scaler.fit_transform(batsman[['avg']])
+
+# Create a scatter plot with cluster labels and manually set marker size based on "average" values
+plt.figure(figsize=(10, 6))
+ax = sns.scatterplot(x="x", y="y", hue="cluster", data=new_batsman, palette="viridis", sizes=(50, 500), size=batsman['avg_normalized'])
+
+# Add labels for individual data points
+for x, y, player, cluster in zip(new_batsman['x'], new_batsman['y'], new_batsman['player'], new_batsman['cluster']):
+    plt.text(x, y, player, fontsize=10, alpha=0.8)
+
+# Set the plot limits and labels
+ax.set(ylim=(-3, 3))
+plt.xlabel("Principal Component 1", fontsize=15)
+plt.ylabel("Principal Component 2", fontsize=15)
+
+# Show the legend
+plt.legend(title='Cluster', loc='best', labels=[f'Cluster {label}' for label in new_batsman['cluster'].unique()])
+
+# Display the plot
+plt.show()
+
+```
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
+
+# Set the style
+sns.set(style="white")
+
+# Normalize the "average" values
+scaler = MinMaxScaler()
+batsman['100_normalized'] = scaler.fit_transform(batsman[['100']])
+
+# Create a scatter plot with cluster labels and manually set marker size based on "average" values
+plt.figure(figsize=(10, 6))
+ax = sns.scatterplot(x="x", y="y", hue="cluster", data=new_batsman, palette="viridis", sizes=(50, 500), size=batsman['100_normalized'])
+
+# Add labels for individual data points
+for x, y, player, cluster in zip(new_batsman['x'], new_batsman['y'], new_batsman['player'], new_batsman['cluster']):
+    plt.text(x, y, player, fontsize=10, alpha=0.8)
+
+# Set the plot limits and labels
+ax.set(ylim=(-3, 3))
+plt.xlabel("Principal Component 1", fontsize=15)
+plt.ylabel("Principal Component 2", fontsize=15)
+
+# Show the legend
+plt.legend(title='Cluster', loc='upper right', labels=[f'Cluster {label}' for label in new_batsman['cluster'].unique()])
+
+# Display the plot
+plt.show()
 ```
