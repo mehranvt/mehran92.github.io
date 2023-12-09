@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -61,6 +95,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -147,7 +184,879 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>This is a post with executable code.</p>
+<p>Importing libraries</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> pl</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data<span class="op">=</span>pd.read_csv(<span class="st">'air_quality_data.csv'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">State</th>
+<th data-quarto-table-cell-role="th">County</th>
+<th data-quarto-table-cell-role="th">Year</th>
+<th data-quarto-table-cell-role="th">Days with AQI</th>
+<th data-quarto-table-cell-role="th">Good Days</th>
+<th data-quarto-table-cell-role="th">Moderate Days</th>
+<th data-quarto-table-cell-role="th">Unhealthy for Sensitive Groups Days</th>
+<th data-quarto-table-cell-role="th">Unhealthy Days</th>
+<th data-quarto-table-cell-role="th">Very Unhealthy Days</th>
+<th data-quarto-table-cell-role="th">Hazardous Days</th>
+<th data-quarto-table-cell-role="th">Max AQI</th>
+<th data-quarto-table-cell-role="th">90th Percentile AQI</th>
+<th data-quarto-table-cell-role="th">Median AQI</th>
+<th data-quarto-table-cell-role="th">Days CO</th>
+<th data-quarto-table-cell-role="th">Days NO2</th>
+<th data-quarto-table-cell-role="th">Days Ozone</th>
+<th data-quarto-table-cell-role="th">Days PM2.5</th>
+<th data-quarto-table-cell-role="th">Days PM10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Alabama</td>
+<td>Baldwin</td>
+<td>2022</td>
+<td>141</td>
+<td>119</td>
+<td>22</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>96</td>
+<td>52</td>
+<td>40</td>
+<td>0</td>
+<td>0</td>
+<td>114</td>
+<td>27</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Alabama</td>
+<td>Clay</td>
+<td>2022</td>
+<td>58</td>
+<td>50</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>64</td>
+<td>52</td>
+<td>27</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>58</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Alabama</td>
+<td>DeKalb</td>
+<td>2022</td>
+<td>242</td>
+<td>225</td>
+<td>17</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>97</td>
+<td>48</td>
+<td>37</td>
+<td>0</td>
+<td>0</td>
+<td>224</td>
+<td>18</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Alabama</td>
+<td>Elmore</td>
+<td>2022</td>
+<td>117</td>
+<td>110</td>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>67</td>
+<td>47</td>
+<td>37</td>
+<td>0</td>
+<td>0</td>
+<td>117</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Alabama</td>
+<td>Etowah</td>
+<td>2022</td>
+<td>179</td>
+<td>140</td>
+<td>39</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>93</td>
+<td>58</td>
+<td>42</td>
+<td>0</td>
+<td>0</td>
+<td>76</td>
+<td>103</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data.<span class="bu">apply</span>(pd.isnull).<span class="bu">sum</span>()<span class="op">/</span>data.shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>State                                  0.0
+County                                 0.0
+Year                                   0.0
+Days with AQI                          0.0
+Good Days                              0.0
+Moderate Days                          0.0
+Unhealthy for Sensitive Groups Days    0.0
+Unhealthy Days                         0.0
+Very Unhealthy Days                    0.0
+Hazardous Days                         0.0
+Max AQI                                0.0
+90th Percentile AQI                    0.0
+Median AQI                             0.0
+Days CO                                0.0
+Days NO2                               0.0
+Days Ozone                             0.0
+Days PM2.5                             0.0
+Days PM10                              0.0
+dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Year</th>
+<th data-quarto-table-cell-role="th">Days with AQI</th>
+<th data-quarto-table-cell-role="th">Good Days</th>
+<th data-quarto-table-cell-role="th">Moderate Days</th>
+<th data-quarto-table-cell-role="th">Unhealthy for Sensitive Groups Days</th>
+<th data-quarto-table-cell-role="th">Unhealthy Days</th>
+<th data-quarto-table-cell-role="th">Very Unhealthy Days</th>
+<th data-quarto-table-cell-role="th">Hazardous Days</th>
+<th data-quarto-table-cell-role="th">Max AQI</th>
+<th data-quarto-table-cell-role="th">90th Percentile AQI</th>
+<th data-quarto-table-cell-role="th">Median AQI</th>
+<th data-quarto-table-cell-role="th">Days CO</th>
+<th data-quarto-table-cell-role="th">Days NO2</th>
+<th data-quarto-table-cell-role="th">Days Ozone</th>
+<th data-quarto-table-cell-role="th">Days PM2.5</th>
+<th data-quarto-table-cell-role="th">Days PM10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>966.0</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+<td>966.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>2022.0</td>
+<td>208.917184</td>
+<td>173.689441</td>
+<td>33.388199</td>
+<td>1.566253</td>
+<td>0.214286</td>
+<td>0.026915</td>
+<td>0.032091</td>
+<td>112.774327</td>
+<td>55.115942</td>
+<td>36.821946</td>
+<td>0.666667</td>
+<td>4.330228</td>
+<td>127.083851</td>
+<td>68.909938</td>
+<td>7.926501</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>0.0</td>
+<td>58.371700</td>
+<td>52.564146</td>
+<td>29.654791</td>
+<td>4.591190</td>
+<td>1.401200</td>
+<td>0.267981</td>
+<td>0.419727</td>
+<td>254.401084</td>
+<td>14.632954</td>
+<td>9.672426</td>
+<td>5.107616</td>
+<td>19.372906</td>
+<td>82.596442</td>
+<td>69.893621</td>
+<td>30.194461</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>2022.0</td>
+<td>4.000000</td>
+<td>4.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>8.000000</td>
+<td>5.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>2022.0</td>
+<td>181.000000</td>
+<td>147.250000</td>
+<td>12.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>77.000000</td>
+<td>48.000000</td>
+<td>35.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>76.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>2022.0</td>
+<td>212.000000</td>
+<td>174.000000</td>
+<td>24.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>95.000000</td>
+<td>54.000000</td>
+<td>39.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>131.500000</td>
+<td>58.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>2022.0</td>
+<td>261.750000</td>
+<td>213.000000</td>
+<td>46.750000</td>
+<td>1.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>115.000000</td>
+<td>61.000000</td>
+<td>42.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>188.000000</td>
+<td>107.000000</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>2022.0</td>
+<td>306.000000</td>
+<td>293.000000</td>
+<td>197.000000</td>
+<td>57.000000</td>
+<td>20.000000</td>
+<td>6.000000</td>
+<td>10.000000</td>
+<td>7577.000000</td>
+<td>151.000000</td>
+<td>77.000000</td>
+<td>77.000000</td>
+<td>209.000000</td>
+<td>299.000000</td>
+<td>303.000000</td>
+<td>299.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>air<span class="op">=</span>data[[<span class="st">"State"</span>,<span class="st">"County"</span>,<span class="st">"Max AQI"</span>,<span class="st">"90th Percentile AQI"</span>,<span class="st">"Days PM2.5"</span>]].copy()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>air.columns<span class="op">=</span>[<span class="st">"State"</span>,<span class="st">"County"</span>,<span class="st">"Max AQI"</span>,<span class="st">"90th Percentile AQI"</span>,<span class="st">"Days PM2.5"</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>air.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">State</th>
+<th data-quarto-table-cell-role="th">County</th>
+<th data-quarto-table-cell-role="th">Max AQI</th>
+<th data-quarto-table-cell-role="th">90th Percentile AQI</th>
+<th data-quarto-table-cell-role="th">Days PM2.5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Alabama</td>
+<td>Baldwin</td>
+<td>96</td>
+<td>52</td>
+<td>27</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Alabama</td>
+<td>Clay</td>
+<td>64</td>
+<td>52</td>
+<td>58</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Alabama</td>
+<td>DeKalb</td>
+<td>97</td>
+<td>48</td>
+<td>18</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Alabama</td>
+<td>Elmore</td>
+<td>67</td>
+<td>47</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Alabama</td>
+<td>Etowah</td>
+<td>93</td>
+<td>58</td>
+<td>103</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to save these features for the future</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>State <span class="op">=</span> air[<span class="st">'State'</span>].tolist()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>County <span class="op">=</span> air[<span class="st">'County'</span>].tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.pairplot(air)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pl.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>air <span class="op">=</span> pd.DataFrame(air)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the "State" and "County" columns</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>air <span class="op">=</span> air.drop(columns<span class="op">=</span>[<span class="st">"State"</span>, <span class="st">"County"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the Min-Max scaler</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit and transform the entire "air" dataset</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>air <span class="op">=</span> scaler.fit_transform(air)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># "normalized_air" now contains the scaled features in the [0, 1] range</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>air</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>array([[0.01162637, 0.32191781, 0.08910891],
+       [0.0073986 , 0.32191781, 0.19141914],
+       [0.01175849, 0.29452055, 0.05940594],
+       ...,
+       [0.01215484, 0.29452055, 0.00660066],
+       [0.00620954, 0.08219178, 0.        ],
+       [0.00660589, 0.26712329, 0.        ]])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize PCA with the desired number of components (e.g., 2 for a 2D visualization)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>num_components <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span>num_components)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit and transform your normalized data with PCA</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>new_air <span class="op">=</span> pca.fit_transform(air)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming you have normalized your data and stored it in 'normalized_air'</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the number of nearest neighbors (k) for the k-distance plot</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">5</span>  <span class="co"># You can adjust this value</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a Nearest Neighbors model to the normalized data</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>nn_model <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span>k)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>nn_model.fit(air)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate distances to the k-th nearest neighbor for each data point</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>distances, _ <span class="op">=</span> nn_model.kneighbors(air)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the distances and create a k-distance plot</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>sorted_distances <span class="op">=</span> np.sort(distances[:, <span class="op">-</span><span class="dv">1</span>])  <span class="co"># Sort by the distance to the k-th neighbor</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>pl.plot(np.arange(<span class="dv">1</span>, <span class="bu">len</span>(sorted_distances) <span class="op">+</span> <span class="dv">1</span>), sorted_distances)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>pl.xlabel(<span class="st">"Data Point Index"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>pl.ylabel(<span class="ss">f"Distance to </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">-th Nearest Neighbor"</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>pl.title(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">-Distance Plot"</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>pl.grid(<span class="va">True</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>pl.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-12-output-1.png" width="599" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Your data</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> new_air  <span class="co"># Your data points</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>best_eps <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>best_min_samples <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>best_score <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> eps <span class="kw">in</span> np.arange(<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">0.1</span>):  <span class="co"># Adjust the range as needed</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> min_samples <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">20</span>):  <span class="co"># Adjust the range as needed</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span>eps, min_samples<span class="op">=</span>min_samples)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        labels <span class="op">=</span> dbscan.fit_predict(X)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="bu">set</span>(labels)) <span class="op">&gt;</span> <span class="dv">1</span>:  <span class="co"># Ensure more than one cluster is formed</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> silhouette_score(X, labels)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> score <span class="op">&gt;</span> best_score:</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>                best_score <span class="op">=</span> score</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>                best_eps <span class="op">=</span> eps</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>                best_min_samples <span class="op">=</span> min_samples</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best eps: </span><span class="sc">{</span>best_eps<span class="sc">}</span><span class="ss">, Best min_samples: </span><span class="sc">{</span>best_min_samples<span class="sc">}</span><span class="ss">, Best Silhouette Score: </span><span class="sc">{</span>best_score<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best eps: 0.2, Best min_samples: 10, Best Silhouette Score: 0.5989772983728686</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the DBSCAN model with your chosen parameters</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.05</span>, min_samples<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the PCA-transformed data</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>dbscan.fit(new_air)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Access the cluster labels assigned to each data point</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>cluster_labels <span class="op">=</span> dbscan.labels_</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the clusters using the first two principal components</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>pl.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>pl.scatter(new_air[:, <span class="dv">0</span>], new_air[:, <span class="dv">1</span>], c<span class="op">=</span>cluster_labels, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>pl.xlabel(<span class="st">"Principal Component 1"</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>pl.ylabel(<span class="st">"Principal Component 2"</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>pl.title(<span class="st">"DBSCAN Clustering Results after PCA"</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>pl.colorbar()</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>pl.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-14-output-1.png" width="763" height="523"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming you have cluster labels and PCA-transformed data</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame that includes the cluster labels</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>data_with_clusters <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Cluster'</span>: cluster_labels,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PCA Component 1'</span>: new_air[:, <span class="dv">0</span>],</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PCA Component 2'</span>: new_air[:, <span class="dv">1</span>]</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a box plot for PCA Component 1 by cluster</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>pl.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">'Cluster'</span>, y<span class="op">=</span><span class="st">'PCA Component 1'</span>, data<span class="op">=</span>data_with_clusters)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>pl.xlabel(<span class="st">'Cluster'</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>pl.ylabel(<span class="st">'PCA Component 1'</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>pl.title(<span class="st">'Box Plot of PCA Component 1 by Cluster'</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>pl.show()</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a box plot for PCA Component 2 by cluster</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>pl.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">'Cluster'</span>, y<span class="op">=</span><span class="st">'PCA Component 2'</span>, data<span class="op">=</span>data_with_clusters)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>pl.xlabel(<span class="st">'Cluster'</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>pl.ylabel(<span class="st">'PCA Component 2'</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>pl.title(<span class="st">'Box Plot of PCA Component 2 by Cluster'</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>pl.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-15-output-1.png" width="972" height="523"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-15-output-2.png" width="972" height="523"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new DataFrame to combine the results</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>new_air <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: new_air[:, <span class="dv">0</span>], <span class="st">'y'</span>: new_air[:, <span class="dv">1</span>], <span class="st">'Cluster'</span>: cluster_labels, <span class="st">'State'</span>: State})</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the resulting DataFrame</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>new_air</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+<th data-quarto-table-cell-role="th">Cluster</th>
+<th data-quarto-table-cell-role="th">State</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>-0.138111</td>
+<td>-0.022733</td>
+<td>0</td>
+<td>Alabama</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>-0.035805</td>
+<td>-0.022062</td>
+<td>0</td>
+<td>Alabama</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>-0.167556</td>
+<td>-0.050336</td>
+<td>0</td>
+<td>Alabama</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>-0.226895</td>
+<td>-0.057990</td>
+<td>0</td>
+<td>Alabama</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>0.112319</td>
+<td>0.020583</td>
+<td>0</td>
+<td>Alabama</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">961</td>
+<td>-0.224044</td>
+<td>-0.009787</td>
+<td>0</td>
+<td>Wyoming</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">962</td>
+<td>-0.125231</td>
+<td>0.012099</td>
+<td>0</td>
+<td>Wyoming</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">963</td>
+<td>-0.220359</td>
+<td>-0.050802</td>
+<td>0</td>
+<td>Wyoming</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">964</td>
+<td>-0.224973</td>
+<td>-0.263103</td>
+<td>0</td>
+<td>Wyoming</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">965</td>
+<td>-0.226703</td>
+<td>-0.078571</td>
+<td>0</td>
+<td>Wyoming</td>
+</tr>
+</tbody>
+</table>
+
+<p>966 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming you have cluster labels, PCA-transformed data, and State information</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame that includes cluster labels, PCA components, and State</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>data_with_clusters <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Cluster'</span>: cluster_labels,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PCA Component 1'</span>: new_air[<span class="st">'x'</span>],  <span class="co"># Assuming 'x' represents PCA Component 1</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PCA Component 2'</span>: new_air[<span class="st">'y'</span>],  <span class="co"># Assuming 'y' represents PCA Component 2</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'State'</span>: State  <span class="co"># Assuming 'State' is available in your data</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Get unique cluster labels</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>unique_clusters <span class="op">=</span> data_with_clusters[<span class="st">'Cluster'</span>].unique()</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through clusters and create individual scatter plots</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster <span class="kw">in</span> unique_clusters:</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> sns.scatterplot(</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"PCA Component 1"</span>,</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"PCA Component 2"</span>,</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>data_with_clusters[data_with_clusters[<span class="st">'Cluster'</span>] <span class="op">==</span> cluster],  <span class="co"># Filter data by cluster</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        palette<span class="op">=</span><span class="st">"viridis"</span>,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        s<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add labels for individual data points</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x, y, state <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>        data_with_clusters[data_with_clusters[<span class="st">'Cluster'</span>] <span class="op">==</span> cluster][<span class="st">'PCA Component 1'</span>],</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        data_with_clusters[data_with_clusters[<span class="st">'Cluster'</span>] <span class="op">==</span> cluster][<span class="st">'PCA Component 2'</span>],</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>        data_with_clusters[data_with_clusters[<span class="st">'Cluster'</span>] <span class="op">==</span> cluster][<span class="st">'State'</span>],</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    ):</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>        plt.text(x, y, state, fontsize<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set the plot limits and labels</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Principal Component 1"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Principal Component 2"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set the title for the individual cluster plot</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'Scatter Plot for Cluster </span><span class="sc">{</span>cluster<span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Display the plot</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\mehra\AppData\Local\Temp\ipykernel_21280\1173522113.py:19: UserWarning:
+
+Ignoring `palette` because no `hue` variable has been assigned.
+
+C:\Users\mehra\AppData\Local\Temp\ipykernel_21280\1173522113.py:19: UserWarning:
+
+Ignoring `palette` because no `hue` variable has been assigned.
+
+C:\Users\mehra\AppData\Local\Temp\ipykernel_21280\1173522113.py:19: UserWarning:
+
+Ignoring `palette` because no `hue` variable has been assigned.
+
+C:\Users\mehra\AppData\Local\Temp\ipykernel_21280\1173522113.py:19: UserWarning:
+
+Ignoring `palette` because no `hue` variable has been assigned.
+
+C:\Users\mehra\AppData\Local\Temp\ipykernel_21280\1173522113.py:19: UserWarning:
+
+Ignoring `palette` because no `hue` variable has been assigned.
+
+C:\Users\mehra\AppData\Local\Temp\ipykernel_21280\1173522113.py:19: UserWarning:
+
+Ignoring `palette` because no `hue` variable has been assigned.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-17-output-2.png" width="846" height="534"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-17-output-3.png" width="862" height="534"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-17-output-4.png" width="886" height="534"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-17-output-5.png" width="845" height="534"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-17-output-6.png" width="818" height="534"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-17-output-7.png" width="855" height="534"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming you have cluster labels, PCA-transformed data, and State information</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame that includes cluster labels, PCA components, and State</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>data_with_clusters <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Cluster'</span>: cluster_labels,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PCA Component 1'</span>: new_air[<span class="st">'x'</span>],  <span class="co"># Assuming 'x' represents PCA Component 1</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'PCA Component 2'</span>: new_air[<span class="st">'y'</span>],  <span class="co"># Assuming 'y' represents PCA Component 2</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'State'</span>: State  <span class="co"># Assuming 'State' is available in your data</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Get unique cluster labels</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>unique_clusters <span class="op">=</span> data_with_clusters[<span class="st">'Cluster'</span>].unique()</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through clusters and create individual bar plots for the 'State' variable</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster <span class="kw">in</span> unique_clusters:</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count the occurrences of each 'State' within the cluster</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    state_counts <span class="op">=</span> data_with_clusters[data_with_clusters[<span class="st">'Cluster'</span>] <span class="op">==</span> cluster][<span class="st">'State'</span>].value_counts()</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create a bar plot for the 'State' variable within the cluster</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    state_counts.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span><span class="st">'teal'</span>)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"State"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Count"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'Bar Plot for States in Cluster </span><span class="sc">{</span>cluster<span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-18-output-1.png" width="815" height="656"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-18-output-2.png" width="828" height="599"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-18-output-3.png" width="815" height="644"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-18-output-4.png" width="815" height="619"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-18-output-5.png" width="819" height="584"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-18-output-6.png" width="828" height="619"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_samples, silhouette_score</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute silhouette scores for each data point</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>silhouette_avg <span class="op">=</span> silhouette_score(new_air[[<span class="st">'x'</span>, <span class="st">'y'</span>]], cluster_labels)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>sample_silhouette_values <span class="op">=</span> silhouette_samples(new_air[[<span class="st">'x'</span>, <span class="st">'y'</span>]], cluster_labels)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add silhouette scores to the DataFrame</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>new_air[<span class="st">'Silhouette Score'</span>] <span class="op">=</span> sample_silhouette_values</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Silhouette Score: </span><span class="sc">{</span>silhouette_avg<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Silhouette Score: 0.14829996909278287</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot to visualize the silhouette scores by cluster</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.barplot(x<span class="op">=</span>cluster_labels, y<span class="op">=</span>new_air[<span class="st">'Silhouette Score'</span>], palette<span class="op">=</span><span class="st">"viridis"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Cluster"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Silhouette Score"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Silhouette Scores by Cluster"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw a vertical line at the average silhouette score</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>silhouette_avg, color<span class="op">=</span><span class="st">"red"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Average Silhouette Score"</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-20-output-1.png" width="830" height="534"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Max AQI (Maximum Air Quality Index): Clusters could represent groups of states with similar maximum air quality values. For example, a cluster might contain states that frequently experience high maximum AQI values, indicating occasional poor air quality.</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#90th Percentile AQI: This feature reflects the 90th percentile of AQI values, which indicates the AQI level exceeded only 10% of the time. Clusters might group states with similar patterns of exceeding AQI levels.</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Days PM2.5, Days Ozone, Days CO: These features represent the number of days when specific air pollutants (PM2.5, Ozone, CO) exceed certain thresholds. Clusters could represent states with similar distributions of days exceeding these thresholds.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 

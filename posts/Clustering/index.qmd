@@ -6,8 +6,303 @@ categories: [code, analysis]
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+Importing libraries
 
 ```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as pl
+import seaborn as sns
+```
 
+```{python}
+data=pd.read_csv('air_quality_data.csv')
+data.head()
+```
+
+```{python}
+data.apply(pd.isnull).sum()/data.shape[0]
+```
+
+```{python}
+data.describe()
+```
+
+```{python}
+air=data[["State","County","Max AQI","90th Percentile AQI","Days PM2.5"]].copy()
+air.columns=["State","County","Max AQI","90th Percentile AQI","Days PM2.5"]
+air.head()
+```
+
+```{python}
+#to save these features for the future
+State = air['State'].tolist()
+County = air['County'].tolist()
+```
+
+```{python}
+#sns.pairplot(air)
+#pl.show()
+```
+
+```{python}
+air = pd.DataFrame(air)
+
+# Drop the "State" and "County" columns
+air = air.drop(columns=["State", "County"])
+```
+
+```{python}
+from sklearn.preprocessing import MinMaxScaler
+
+# Initialize the Min-Max scaler
+scaler = MinMaxScaler()
+
+# Fit and transform the entire "air" dataset
+air = scaler.fit_transform(air)
+
+# "normalized_air" now contains the scaled features in the [0, 1] range
+air
+```
+
+```{python}
+from sklearn.decomposition import PCA
+
+# Initialize PCA with the desired number of components (e.g., 2 for a 2D visualization)
+num_components = 2
+pca = PCA(n_components=num_components)
+
+# Fit and transform your normalized data with PCA
+new_air = pca.fit_transform(air)
+```
+
+```{python}
+from sklearn.neighbors import NearestNeighbors
+
+# Assuming you have normalized your data and stored it in 'normalized_air'
+
+# Determine the number of nearest neighbors (k) for the k-distance plot
+k = 5  # You can adjust this value
+
+# Fit a Nearest Neighbors model to the normalized data
+nn_model = NearestNeighbors(n_neighbors=k)
+nn_model.fit(air)
+
+# Calculate distances to the k-th nearest neighbor for each data point
+distances, _ = nn_model.kneighbors(air)
+
+# Sort the distances and create a k-distance plot
+sorted_distances = np.sort(distances[:, -1])  # Sort by the distance to the k-th neighbor
+pl.plot(np.arange(1, len(sorted_distances) + 1), sorted_distances)
+pl.xlabel("Data Point Index")
+pl.ylabel(f"Distance to {k}-th Nearest Neighbor")
+pl.title(f"{k}-Distance Plot")
+pl.grid(True)
+
+# Display the plot
+pl.show()
+```
+
+```{python}
+from sklearn.cluster import DBSCAN
+from sklearn.metrics import silhouette_score
+
+
+# Your data
+X = new_air  # Your data points
+
+best_eps = None
+best_min_samples = None
+best_score = -1
+
+for eps in np.arange(0.1, 1.0, 0.1):  # Adjust the range as needed
+    for min_samples in range(2, 20):  # Adjust the range as needed
+        dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+        labels = dbscan.fit_predict(X)
+        if len(set(labels)) > 1:  # Ensure more than one cluster is formed
+            score = silhouette_score(X, labels)
+            if score > best_score:
+                best_score = score
+                best_eps = eps
+                best_min_samples = min_samples
+
+print(f"Best eps: {best_eps}, Best min_samples: {best_min_samples}, Best Silhouette Score: {best_score}")
+
+```
+
+```{python}
+from sklearn.cluster import DBSCAN
+
+# Initialize the DBSCAN model with your chosen parameters
+dbscan = DBSCAN(eps=0.05, min_samples=5)
+
+# Fit the model to the PCA-transformed data
+dbscan.fit(new_air)
+
+# Access the cluster labels assigned to each data point
+cluster_labels = dbscan.labels_
+
+
+
+# Plot the clusters using the first two principal components
+pl.figure(figsize=(10, 6))
+pl.scatter(new_air[:, 0], new_air[:, 1], c=cluster_labels, cmap='viridis')
+pl.xlabel("Principal Component 1")
+pl.ylabel("Principal Component 2")
+pl.title("DBSCAN Clustering Results after PCA")
+pl.colorbar()
+pl.show()
+```
+
+```{python}
+# Assuming you have cluster labels and PCA-transformed data
+# Create a DataFrame that includes the cluster labels
+data_with_clusters = pd.DataFrame({
+    'Cluster': cluster_labels,
+    'PCA Component 1': new_air[:, 0],
+    'PCA Component 2': new_air[:, 1]
+})
+
+# Create a box plot for PCA Component 1 by cluster
+pl.figure(figsize=(12, 6))
+sns.boxplot(x='Cluster', y='PCA Component 1', data=data_with_clusters)
+pl.xlabel('Cluster')
+pl.ylabel('PCA Component 1')
+pl.title('Box Plot of PCA Component 1 by Cluster')
+pl.show()
+
+# Create a box plot for PCA Component 2 by cluster
+pl.figure(figsize=(12, 6))
+sns.boxplot(x='Cluster', y='PCA Component 2', data=data_with_clusters)
+pl.xlabel('Cluster')
+pl.ylabel('PCA Component 2')
+pl.title('Box Plot of PCA Component 2 by Cluster')
+pl.show()
+```
+
+```{python}
+# Create a new DataFrame to combine the results
+new_air = pd.DataFrame({'x': new_air[:, 0], 'y': new_air[:, 1], 'Cluster': cluster_labels, 'State': State})
+
+# Display the resulting DataFrame
+new_air
+```
+
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Assuming you have cluster labels, PCA-transformed data, and State information
+# Create a DataFrame that includes cluster labels, PCA components, and State
+data_with_clusters = pd.DataFrame({
+    'Cluster': cluster_labels,
+    'PCA Component 1': new_air['x'],  # Assuming 'x' represents PCA Component 1
+    'PCA Component 2': new_air['y'],  # Assuming 'y' represents PCA Component 2
+    'State': State  # Assuming 'State' is available in your data
+})
+
+# Get unique cluster labels
+unique_clusters = data_with_clusters['Cluster'].unique()
+
+# Iterate through clusters and create individual scatter plots
+for cluster in unique_clusters:
+    plt.figure(figsize=(10, 6))
+    ax = sns.scatterplot(
+        x="PCA Component 1",
+        y="PCA Component 2",
+        data=data_with_clusters[data_with_clusters['Cluster'] == cluster],  # Filter data by cluster
+        palette="viridis",
+        s=100,
+    )
+
+    # Add labels for individual data points
+    for x, y, state in zip(
+        data_with_clusters[data_with_clusters['Cluster'] == cluster]['PCA Component 1'],
+        data_with_clusters[data_with_clusters['Cluster'] == cluster]['PCA Component 2'],
+        data_with_clusters[data_with_clusters['Cluster'] == cluster]['State'],
+    ):
+        plt.text(x, y, state, fontsize=10, alpha=0.8)
+
+    # Set the plot limits and labels
+    ax.set(ylim=(-3, 3))
+    plt.xlabel("Principal Component 1", fontsize=15)
+    plt.ylabel("Principal Component 2", fontsize=15)
+
+    # Set the title for the individual cluster plot
+    plt.title(f'Scatter Plot for Cluster {cluster}', fontsize=15)
+
+    # Display the plot
+    plt.show()
+
+```
+
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Assuming you have cluster labels, PCA-transformed data, and State information
+# Create a DataFrame that includes cluster labels, PCA components, and State
+data_with_clusters = pd.DataFrame({
+    'Cluster': cluster_labels,
+    'PCA Component 1': new_air['x'],  # Assuming 'x' represents PCA Component 1
+    'PCA Component 2': new_air['y'],  # Assuming 'y' represents PCA Component 2
+    'State': State  # Assuming 'State' is available in your data
+})
+
+# Get unique cluster labels
+unique_clusters = data_with_clusters['Cluster'].unique()
+
+# Iterate through clusters and create individual bar plots for the 'State' variable
+for cluster in unique_clusters:
+    plt.figure(figsize=(10, 6))
+    
+    # Count the occurrences of each 'State' within the cluster
+    state_counts = data_with_clusters[data_with_clusters['Cluster'] == cluster]['State'].value_counts()
+    
+    # Create a bar plot for the 'State' variable within the cluster
+    state_counts.plot(kind='bar', color='teal')
+    
+    plt.xlabel("State", fontsize=15)
+    plt.ylabel("Count", fontsize=15)
+    plt.title(f'Bar Plot for States in Cluster {cluster}', fontsize=15)
+    
+    plt.show()
+```
+
+```{python}
+from sklearn.metrics import silhouette_samples, silhouette_score
+
+# Compute silhouette scores for each data point
+silhouette_avg = silhouette_score(new_air[['x', 'y']], cluster_labels)
+sample_silhouette_values = silhouette_samples(new_air[['x', 'y']], cluster_labels)
+
+# Add silhouette scores to the DataFrame
+new_air['Silhouette Score'] = sample_silhouette_values
+
+print(f"Silhouette Score: {silhouette_avg}")
+```
+
+```{python}
+import numpy as np
+
+# Create a bar plot to visualize the silhouette scores by cluster
+plt.figure(figsize=(10, 6))
+ax = sns.barplot(x=cluster_labels, y=new_air['Silhouette Score'], palette="viridis")
+plt.xlabel("Cluster", fontsize=15)
+plt.ylabel("Silhouette Score", fontsize=15)
+plt.title("Silhouette Scores by Cluster", fontsize=15)
+
+# Draw a vertical line at the average silhouette score
+plt.axvline(x=silhouette_avg, color="red", linestyle="--", label="Average Silhouette Score")
+plt.legend()
+
+plt.show()
+```
+
+```{python}
+#Max AQI (Maximum Air Quality Index): Clusters could represent groups of states with similar maximum air quality values. For example, a cluster might contain states that frequently experience high maximum AQI values, indicating occasional poor air quality.
+
+#90th Percentile AQI: This feature reflects the 90th percentile of AQI values, which indicates the AQI level exceeded only 10% of the time. Clusters might group states with similar patterns of exceeding AQI levels.
+
+#Days PM2.5, Days Ozone, Days CO: These features represent the number of days when specific air pollutants (PM2.5, Ozone, CO) exceed certain thresholds. Clusters could represent states with similar distributions of days exceeding these thresholds.
 ```
