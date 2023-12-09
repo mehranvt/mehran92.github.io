@@ -67,10 +67,10 @@ batsman.tail()
 
 ```{python}
 # List of names to delete
-names_to_delete = ['SR Tendulkar', 'DG Bradman']
+
 
 # Filter out rows with the specified names
-batsman = batsman[~batsman['player'].isin(names_to_delete)]
+
 
 batsman.head()
 ```
