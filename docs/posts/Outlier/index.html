@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
+<meta name="author" content="Mehran Islam">
 <meta name="dcterms.date" content="2023-12-07">
 
-<title>mehran92.github.io - Post With Code</title>
+<title>mehran92.github.io - Outlier</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,6 +95,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -142,9 +145,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Outlier</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
                 <div class="quarto-category">code</div>
                 <div class="quarto-category">analysis</div>
               </div>
@@ -157,7 +159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Mehran Islam </p>
             </div>
     </div>
       
@@ -182,11 +184,1568 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>This is a post with executable code.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Importing libraries</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> pl</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Read the data</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'Cricket_data.txt'</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows of the data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Player</th>
+<th data-quarto-table-cell-role="th">Span</th>
+<th data-quarto-table-cell-role="th">Mat</th>
+<th data-quarto-table-cell-role="th">Inn</th>
+<th data-quarto-table-cell-role="th">NO</th>
+<th data-quarto-table-cell-role="th">Runs</th>
+<th data-quarto-table-cell-role="th">HS</th>
+<th data-quarto-table-cell-role="th">Avg</th>
+<th data-quarto-table-cell-role="th">100</th>
+<th data-quarto-table-cell-role="th">50</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">Player Profile</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>SR Tendulkar&nbsp;(INDIA)</td>
+<td>1989-2013</td>
+<td>200</td>
+<td>329</td>
+<td>33</td>
+<td>15921</td>
+<td>248*</td>
+<td>53.78</td>
+<td>51</td>
+<td>68</td>
+<td>14</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>RT Ponting&nbsp;(AUS)</td>
+<td>1995-2012</td>
+<td>168</td>
+<td>287</td>
+<td>29</td>
+<td>13378</td>
+<td>257</td>
+<td>51.85</td>
+<td>41</td>
+<td>62</td>
+<td>17</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>JH Kallis&nbsp;(ICC/SA)</td>
+<td>1995-2013</td>
+<td>166</td>
+<td>280</td>
+<td>40</td>
+<td>13289</td>
+<td>224</td>
+<td>55.37</td>
+<td>45</td>
+<td>58</td>
+<td>16</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>R Dravid&nbsp;(ICC/INDIA)</td>
+<td>1996-2012</td>
+<td>164</td>
+<td>286</td>
+<td>32</td>
+<td>13288</td>
+<td>270</td>
+<td>52.31</td>
+<td>36</td>
+<td>63</td>
+<td>8</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>AN Cook&nbsp;(ENG)</td>
+<td>2006-2018</td>
+<td>161</td>
+<td>291</td>
+<td>16</td>
+<td>12472</td>
+<td>294</td>
+<td>45.35</td>
+<td>33</td>
+<td>57</td>
+<td>9</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2996</td>
+<td>CA Snedden&nbsp;(NZ)</td>
+<td>1947-1947</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2997</td>
+<td>VN Swamy&nbsp;(INDIA)</td>
+<td>1955-1955</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2998</td>
+<td>Usman Shinwari&nbsp;(PAK)</td>
+<td>2019-2019</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2999</td>
+<td>CM Willoughby&nbsp;(SA)</td>
+<td>2003-2003</td>
+<td>2</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3000</td>
+<td>JW Wilson&nbsp;(AUS)</td>
+<td>1956-1956</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+</tbody>
+</table>
+
+<p>3001 rows × 12 columns</p>
+</div>
+</div>
+</div>
+<p>Identify null data</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data.<span class="bu">apply</span>(pd.isnull).<span class="bu">sum</span>()<span class="op">/</span>data.shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>Player            0.0
+Span              0.0
+Mat               0.0
+Inn               0.0
+NO                0.0
+Runs              0.0
+HS                0.0
+Avg               0.0
+100               0.0
+50                0.0
+0                 0.0
+Player Profile    0.0
+dtype: float64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data.describe(include<span class="op">=</span><span class="st">'object'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Player</th>
+<th data-quarto-table-cell-role="th">Span</th>
+<th data-quarto-table-cell-role="th">Inn</th>
+<th data-quarto-table-cell-role="th">NO</th>
+<th data-quarto-table-cell-role="th">Runs</th>
+<th data-quarto-table-cell-role="th">HS</th>
+<th data-quarto-table-cell-role="th">Avg</th>
+<th data-quarto-table-cell-role="th">100</th>
+<th data-quarto-table-cell-role="th">50</th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">Player Profile</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+<td>3001</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">unique</td>
+<td>2995</td>
+<td>1140</td>
+<td>198</td>
+<td>49</td>
+<td>1188</td>
+<td>465</td>
+<td>1598</td>
+<td>40</td>
+<td>57</td>
+<td>35</td>
+<td>3001</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">top</td>
+<td>Imran Khan&nbsp;(PAK)</td>
+<td>2019-2019</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+<td>-</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>http://stats.espncricinfo.com/ci/content/playe...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">freq</td>
+<td>2</td>
+<td>45</td>
+<td>374</td>
+<td>953</td>
+<td>52</td>
+<td>40</td>
+<td>88</td>
+<td>2203</td>
+<td>1619</td>
+<td>854</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cricket<span class="op">=</span>data[[<span class="st">"Player"</span>,<span class="st">"Span"</span>,<span class="st">"Mat"</span>,<span class="st">"Inn"</span>,<span class="st">"Runs"</span>,<span class="st">"Avg"</span>,<span class="st">"100"</span>,<span class="st">"50"</span>]].copy()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cricket.columns<span class="op">=</span>[<span class="st">"player"</span>,<span class="st">"span"</span>,<span class="st">"mat"</span>,<span class="st">"inn"</span>,<span class="st">"runs"</span>,<span class="st">"avg"</span>,<span class="st">"100"</span>,<span class="st">"50"</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>cricket.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player</th>
+<th data-quarto-table-cell-role="th">span</th>
+<th data-quarto-table-cell-role="th">mat</th>
+<th data-quarto-table-cell-role="th">inn</th>
+<th data-quarto-table-cell-role="th">runs</th>
+<th data-quarto-table-cell-role="th">avg</th>
+<th data-quarto-table-cell-role="th">100</th>
+<th data-quarto-table-cell-role="th">50</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>SR Tendulkar&nbsp;(INDIA)</td>
+<td>1989-2013</td>
+<td>200</td>
+<td>329</td>
+<td>15921</td>
+<td>53.78</td>
+<td>51</td>
+<td>68</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>RT Ponting&nbsp;(AUS)</td>
+<td>1995-2012</td>
+<td>168</td>
+<td>287</td>
+<td>13378</td>
+<td>51.85</td>
+<td>41</td>
+<td>62</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>JH Kallis&nbsp;(ICC/SA)</td>
+<td>1995-2013</td>
+<td>166</td>
+<td>280</td>
+<td>13289</td>
+<td>55.37</td>
+<td>45</td>
+<td>58</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>R Dravid&nbsp;(ICC/INDIA)</td>
+<td>1996-2012</td>
+<td>164</td>
+<td>286</td>
+<td>13288</td>
+<td>52.31</td>
+<td>36</td>
+<td>63</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>AN Cook&nbsp;(ENG)</td>
+<td>2006-2018</td>
+<td>161</td>
+<td>291</td>
+<td>12472</td>
+<td>45.35</td>
+<td>33</td>
+<td>57</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>converting to numerical int data</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the 'runs' column to a numeric data type (int)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cricket[<span class="st">'runs'</span>] <span class="op">=</span> cricket[<span class="st">'runs'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>, <span class="st">''</span>, regex<span class="op">=</span><span class="va">True</span>).<span class="bu">str</span>.extract(<span class="st">'(\d+)'</span>).astype(<span class="bu">float</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data to select players with more than 5000 runs</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>batsman <span class="op">=</span> cricket[cricket[<span class="st">'runs'</span>] <span class="op">&gt;</span> <span class="dv">2000</span>]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the filtered data in column form</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>batsman.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player</th>
+<th data-quarto-table-cell-role="th">span</th>
+<th data-quarto-table-cell-role="th">mat</th>
+<th data-quarto-table-cell-role="th">inn</th>
+<th data-quarto-table-cell-role="th">runs</th>
+<th data-quarto-table-cell-role="th">avg</th>
+<th data-quarto-table-cell-role="th">100</th>
+<th data-quarto-table-cell-role="th">50</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>SR Tendulkar&nbsp;(INDIA)</td>
+<td>1989-2013</td>
+<td>200</td>
+<td>329</td>
+<td>15921.0</td>
+<td>53.78</td>
+<td>51</td>
+<td>68</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>RT Ponting&nbsp;(AUS)</td>
+<td>1995-2012</td>
+<td>168</td>
+<td>287</td>
+<td>13378.0</td>
+<td>51.85</td>
+<td>41</td>
+<td>62</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>JH Kallis&nbsp;(ICC/SA)</td>
+<td>1995-2013</td>
+<td>166</td>
+<td>280</td>
+<td>13289.0</td>
+<td>55.37</td>
+<td>45</td>
+<td>58</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>R Dravid&nbsp;(ICC/INDIA)</td>
+<td>1996-2012</td>
+<td>164</td>
+<td>286</td>
+<td>13288.0</td>
+<td>52.31</td>
+<td>36</td>
+<td>63</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>AN Cook&nbsp;(ENG)</td>
+<td>2006-2018</td>
+<td>161</td>
+<td>291</td>
+<td>12472.0</td>
+<td>45.35</td>
+<td>33</td>
+<td>57</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use .loc to update the 'Player' column</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>batsman.loc[:, <span class="st">'player'</span>] <span class="op">=</span> batsman[<span class="st">'player'</span>].<span class="bu">str</span>.replace(<span class="vs">r'\s*\(.*\)'</span>, <span class="st">''</span>, regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the DataFrame with the country names removed</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>batsman.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player</th>
+<th data-quarto-table-cell-role="th">span</th>
+<th data-quarto-table-cell-role="th">mat</th>
+<th data-quarto-table-cell-role="th">inn</th>
+<th data-quarto-table-cell-role="th">runs</th>
+<th data-quarto-table-cell-role="th">avg</th>
+<th data-quarto-table-cell-role="th">100</th>
+<th data-quarto-table-cell-role="th">50</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">308</td>
+<td>CJL Rogers</td>
+<td>2008-2015</td>
+<td>25</td>
+<td>48</td>
+<td>2015.0</td>
+<td>42.87</td>
+<td>5</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">309</td>
+<td>KOA Powell</td>
+<td>2011-2018</td>
+<td>40</td>
+<td>76</td>
+<td>2011.0</td>
+<td>26.81</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">310</td>
+<td>AC Hudson</td>
+<td>1992-1998</td>
+<td>35</td>
+<td>63</td>
+<td>2007.0</td>
+<td>33.45</td>
+<td>4</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">311</td>
+<td>KL Rahul</td>
+<td>2014-2019</td>
+<td>36</td>
+<td>60</td>
+<td>2006.0</td>
+<td>34.58</td>
+<td>5</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">312</td>
+<td>DN Sardesai</td>
+<td>1961-1972</td>
+<td>30</td>
+<td>55</td>
+<td>2001.0</td>
+<td>39.23</td>
+<td>5</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of names to delete</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>names_to_delete <span class="op">=</span> [<span class="st">'SR Tendulkar'</span>, <span class="st">'DG Bradman'</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out rows with the specified names</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>batsman <span class="op">=</span> batsman[<span class="op">~</span>batsman[<span class="st">'player'</span>].isin(names_to_delete)]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>batsman.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player</th>
+<th data-quarto-table-cell-role="th">span</th>
+<th data-quarto-table-cell-role="th">mat</th>
+<th data-quarto-table-cell-role="th">inn</th>
+<th data-quarto-table-cell-role="th">runs</th>
+<th data-quarto-table-cell-role="th">avg</th>
+<th data-quarto-table-cell-role="th">100</th>
+<th data-quarto-table-cell-role="th">50</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>RT Ponting</td>
+<td>1995-2012</td>
+<td>168</td>
+<td>287</td>
+<td>13378.0</td>
+<td>51.85</td>
+<td>41</td>
+<td>62</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>JH Kallis</td>
+<td>1995-2013</td>
+<td>166</td>
+<td>280</td>
+<td>13289.0</td>
+<td>55.37</td>
+<td>45</td>
+<td>58</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>R Dravid</td>
+<td>1996-2012</td>
+<td>164</td>
+<td>286</td>
+<td>13288.0</td>
+<td>52.31</td>
+<td>36</td>
+<td>63</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>AN Cook</td>
+<td>2006-2018</td>
+<td>161</td>
+<td>291</td>
+<td>12472.0</td>
+<td>45.35</td>
+<td>33</td>
+<td>57</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>KC Sangakkara</td>
+<td>2000-2015</td>
+<td>134</td>
+<td>233</td>
+<td>12400.0</td>
+<td>57.4</td>
+<td>38</td>
+<td>52</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#to save the players name for future </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>player <span class="op">=</span> batsman[<span class="st">'player'</span>].tolist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the 'span' values into start and end years</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>batsman[[<span class="st">'Start_Year'</span>, <span class="st">'End_Year'</span>]] <span class="op">=</span> batsman[<span class="st">'span'</span>].<span class="bu">str</span>.split(<span class="st">'-'</span>, expand<span class="op">=</span><span class="va">True</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the duration in years</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>batsman[<span class="st">'Span_yrs'</span>] <span class="op">=</span> batsman[<span class="st">'End_Year'</span>] <span class="op">-</span> batsman[<span class="st">'Start_Year'</span>] <span class="op">+</span> <span class="dv">1</span>  <span class="co"># Adding 1 to include both start and end years</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the DataFrame with the duration calculated</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>batsman</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">player</th>
+<th data-quarto-table-cell-role="th">span</th>
+<th data-quarto-table-cell-role="th">mat</th>
+<th data-quarto-table-cell-role="th">inn</th>
+<th data-quarto-table-cell-role="th">runs</th>
+<th data-quarto-table-cell-role="th">avg</th>
+<th data-quarto-table-cell-role="th">100</th>
+<th data-quarto-table-cell-role="th">50</th>
+<th data-quarto-table-cell-role="th">Start_Year</th>
+<th data-quarto-table-cell-role="th">End_Year</th>
+<th data-quarto-table-cell-role="th">Span_yrs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>RT Ponting</td>
+<td>1995-2012</td>
+<td>168</td>
+<td>287</td>
+<td>13378.0</td>
+<td>51.85</td>
+<td>41</td>
+<td>62</td>
+<td>1995</td>
+<td>2012</td>
+<td>18</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>JH Kallis</td>
+<td>1995-2013</td>
+<td>166</td>
+<td>280</td>
+<td>13289.0</td>
+<td>55.37</td>
+<td>45</td>
+<td>58</td>
+<td>1995</td>
+<td>2013</td>
+<td>19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>R Dravid</td>
+<td>1996-2012</td>
+<td>164</td>
+<td>286</td>
+<td>13288.0</td>
+<td>52.31</td>
+<td>36</td>
+<td>63</td>
+<td>1996</td>
+<td>2012</td>
+<td>17</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>AN Cook</td>
+<td>2006-2018</td>
+<td>161</td>
+<td>291</td>
+<td>12472.0</td>
+<td>45.35</td>
+<td>33</td>
+<td>57</td>
+<td>2006</td>
+<td>2018</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>KC Sangakkara</td>
+<td>2000-2015</td>
+<td>134</td>
+<td>233</td>
+<td>12400.0</td>
+<td>57.4</td>
+<td>38</td>
+<td>52</td>
+<td>2000</td>
+<td>2015</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">308</td>
+<td>CJL Rogers</td>
+<td>2008-2015</td>
+<td>25</td>
+<td>48</td>
+<td>2015.0</td>
+<td>42.87</td>
+<td>5</td>
+<td>14</td>
+<td>2008</td>
+<td>2015</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">309</td>
+<td>KOA Powell</td>
+<td>2011-2018</td>
+<td>40</td>
+<td>76</td>
+<td>2011.0</td>
+<td>26.81</td>
+<td>3</td>
+<td>6</td>
+<td>2011</td>
+<td>2018</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">310</td>
+<td>AC Hudson</td>
+<td>1992-1998</td>
+<td>35</td>
+<td>63</td>
+<td>2007.0</td>
+<td>33.45</td>
+<td>4</td>
+<td>13</td>
+<td>1992</td>
+<td>1998</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">311</td>
+<td>KL Rahul</td>
+<td>2014-2019</td>
+<td>36</td>
+<td>60</td>
+<td>2006.0</td>
+<td>34.58</td>
+<td>5</td>
+<td>11</td>
+<td>2014</td>
+<td>2019</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">312</td>
+<td>DN Sardesai</td>
+<td>1961-1972</td>
+<td>30</td>
+<td>55</td>
+<td>2001.0</td>
+<td>39.23</td>
+<td>5</td>
+<td>9</td>
+<td>1961</td>
+<td>1972</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+
+<p>311 rows × 11 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.pairplot(batsman)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pl.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>batsman <span class="op">=</span> batsman.drop([<span class="st">'player'</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>batsman.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">span</th>
+<th data-quarto-table-cell-role="th">mat</th>
+<th data-quarto-table-cell-role="th">inn</th>
+<th data-quarto-table-cell-role="th">runs</th>
+<th data-quarto-table-cell-role="th">avg</th>
+<th data-quarto-table-cell-role="th">100</th>
+<th data-quarto-table-cell-role="th">50</th>
+<th data-quarto-table-cell-role="th">Start_Year</th>
+<th data-quarto-table-cell-role="th">End_Year</th>
+<th data-quarto-table-cell-role="th">Span_yrs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1995-2012</td>
+<td>168</td>
+<td>287</td>
+<td>13378.0</td>
+<td>51.85</td>
+<td>41</td>
+<td>62</td>
+<td>1995</td>
+<td>2012</td>
+<td>18</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1995-2013</td>
+<td>166</td>
+<td>280</td>
+<td>13289.0</td>
+<td>55.37</td>
+<td>45</td>
+<td>58</td>
+<td>1995</td>
+<td>2013</td>
+<td>19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1996-2012</td>
+<td>164</td>
+<td>286</td>
+<td>13288.0</td>
+<td>52.31</td>
+<td>36</td>
+<td>63</td>
+<td>1996</td>
+<td>2012</td>
+<td>17</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2006-2018</td>
+<td>161</td>
+<td>291</td>
+<td>12472.0</td>
+<td>45.35</td>
+<td>33</td>
+<td>57</td>
+<td>2006</td>
+<td>2018</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2000-2015</td>
+<td>134</td>
+<td>233</td>
+<td>12400.0</td>
+<td>57.4</td>
+<td>38</td>
+<td>52</td>
+<td>2000</td>
+<td>2015</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>columns<span class="op">=</span>[<span class="st">"runs"</span>,<span class="st">"avg"</span>,<span class="st">"100"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize PCA with the number of components you want to retain</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>n_components <span class="op">=</span> <span class="dv">2</span>  <span class="co"># Adjust as needed</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span>n_components)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the MinMaxScaler</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply Min-Max scaling to your data</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>scaled_data <span class="op">=</span> scaler.fit_transform(batsman[columns])</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit and transform PCA on the scaled data</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>batter <span class="op">=</span> pca.fit_transform(scaled_data)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>batter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>array([[ 1.03695410e+00, -2.69940761e-01],
+       [ 1.12062664e+00, -2.12675013e-01],
+       [ 9.72643357e-01, -2.41727294e-01],
+       [ 8.12777697e-01, -3.26136693e-01],
+       [ 1.00133191e+00, -1.13313620e-01],
+       [ 8.76027429e-01, -1.65416432e-01],
+       [ 8.03714570e-01, -1.77324674e-01],
+       [ 8.35535348e-01, -2.16051623e-01],
+       [ 7.16629780e-01, -1.52257191e-01],
+       [ 7.71731820e-01, -1.47529266e-01],
+       [ 7.51496323e-01, -1.16826152e-01],
+       [ 7.60099920e-01, -9.84197453e-02],
+       [ 5.78313905e-01, -1.44447188e-01],
+       [ 5.81720742e-01, -1.10475759e-01],
+       [ 4.10454723e-01, -1.78356682e-01],
+       [ 5.51630093e-01,  2.02856905e-03],
+       [ 5.45407348e-01, -5.96393461e-02],
+       [ 4.01370162e-01, -1.00331450e-01],
+       [ 5.14558283e-01, -2.75678222e-02],
+       [ 5.67684501e-01, -7.00287954e-02],
+       [ 6.09662762e-01, -4.50051328e-02],
+       [ 5.02929967e-01, -4.73960233e-02],
+       [ 5.22583395e-01, -3.18357048e-02],
+       [ 2.88727946e-01, -2.00119529e-01],
+       [ 3.64045829e-01, -1.11125154e-01],
+       [ 4.57542834e-01, -6.78757801e-02],
+       [ 4.45567474e-01, -5.35478544e-02],
+       [ 5.99487129e-01,  1.25646805e-01],
+       [ 3.51933656e-01, -1.53985937e-01],
+       [ 2.39332032e-01, -2.05109852e-01],
+       [ 3.69502154e-01, -1.30341543e-01],
+       [ 4.08069878e-01, -8.38606584e-02],
+       [ 3.78184869e-01, -1.00150691e-01],
+       [ 3.43006322e-01, -7.55111423e-02],
+       [ 4.86257974e-01,  5.16171859e-02],
+       [ 3.27965069e-01, -9.70326853e-02],
+       [ 3.61347897e-01, -3.71496336e-02],
+       [ 3.00150266e-01, -1.14648941e-01],
+       [ 3.49336173e-01, -9.57022464e-02],
+       [ 3.45310967e-01,  8.55973620e-03],
+       [ 3.58956301e-01, -5.95034750e-02],
+       [ 5.10205303e-01,  1.85504652e-01],
+       [ 2.44794917e-01, -9.51892914e-02],
+       [ 2.57377824e-01, -9.84092269e-02],
+       [ 5.34353047e-01,  1.06940810e-01],
+       [ 1.42898156e-01, -1.14213277e-01],
+       [ 6.03399858e-01,  2.58853727e-01],
+       [ 3.38367599e-01, -2.13239846e-02],
+       [ 4.78770635e-01,  9.96540401e-02],
+       [ 4.04356726e-01, -1.85011346e-03],
+       [ 2.97842037e-01, -1.29782098e-01],
+       [ 1.95539194e-01, -1.20780230e-01],
+       [ 4.36726719e-01,  1.73972519e-01],
+       [ 2.49890744e-01, -8.69695367e-02],
+       [ 4.61362275e-01,  2.15576042e-01],
+       [ 2.56943603e-01, -3.10402788e-02],
+       [ 1.24628706e-01, -1.18122510e-01],
+       [ 3.72297707e-01,  9.63198443e-02],
+       [ 2.67999048e-01, -5.80715056e-02],
+       [ 3.39226040e-01,  1.10467776e-01],
+       [ 2.44932715e-01,  4.87340514e-02],
+       [ 3.07177760e-01, -1.93141179e-02],
+       [ 1.69071959e-01, -4.97705669e-02],
+       [ 3.26657407e-01,  4.99214279e-02],
+       [ 1.63834349e-01, -4.62725445e-02],
+       [ 2.08151008e-01, -7.06237100e-04],
+       [ 1.85766330e-01, -3.05675800e-02],
+       [ 1.42391333e-01, -7.46897299e-02],
+       [ 1.68972338e-01, -1.58399635e-04],
+       [ 2.73307932e-01,  1.08470393e-01],
+       [ 1.77417998e-01, -2.61282404e-03],
+       [ 9.48593095e-02, -1.20992480e-01],
+       [ 7.42494950e-02, -1.31239104e-01],
+       [ 2.76050035e-01,  9.74892335e-02],
+       [ 1.88975445e-01, -5.18534205e-02],
+       [ 9.88132770e-02,  2.23320355e-02],
+       [ 2.33350625e-01,  7.30374883e-02],
+       [-1.08240404e-01, -2.10408152e-01],
+       [ 1.24989870e-01, -8.11846944e-02],
+       [ 1.45343902e-01, -4.41049051e-02],
+       [ 2.01086357e-01,  1.08891803e-01],
+       [ 2.02152732e-01,  3.67767048e-02],
+       [ 2.98245689e-01,  2.60977984e-01],
+       [ 2.02488406e-01,  1.01097090e-01],
+       [ 1.26622896e-01, -4.40343071e-03],
+       [ 5.12523207e-02, -8.36493380e-02],
+       [ 1.29095762e-01,  4.72859215e-03],
+       [-7.72338666e-02, -1.93873285e-01],
+       [ 1.57921020e-01,  9.20679126e-02],
+       [ 1.13152416e-01,  9.20617195e-02],
+       [ 2.34169850e-02, -1.63928198e-01],
+       [ 1.01019658e-01,  3.19870990e-02],
+       [-8.71603846e-02, -8.82939275e-02],
+       [ 1.09980032e-01,  5.87334000e-02],
+       [ 8.24017777e-02,  6.22027567e-02],
+       [-4.91437303e-02, -3.94877019e-02],
+       [ 9.47966632e-02,  1.11322953e-01],
+       [ 1.66589278e-01,  1.96826058e-01],
+       [ 2.56810355e-02,  6.06391137e-02],
+       [-6.59269521e-03, -6.73537491e-02],
+       [ 1.92347234e-02, -9.20554752e-02],
+       [ 3.02151567e-01,  3.66746500e-01],
+       [ 1.00060731e-01,  6.42564644e-02],
+       [ 4.68151045e-02,  4.89768884e-02],
+       [ 1.13612942e-01,  1.15984532e-01],
+       [-1.55462440e-01, -1.75345626e-01],
+       [ 1.76299278e-02, -2.51627784e-02],
+       [ 7.23318643e-02,  1.50964440e-01],
+       [ 2.60931432e-01,  3.34693588e-01],
+       [-5.03523821e-02, -5.19684831e-02],
+       [-4.46116426e-02, -4.10474759e-02],
+       [-5.20165046e-02, -7.86681131e-02],
+       [ 1.01776298e-01,  1.14338074e-01],
+       [ 6.78489514e-02,  8.15107082e-02],
+       [-1.47099579e-01, -1.14503232e-01],
+       [ 3.32199349e-02,  4.94933098e-02],
+       [-2.19051701e-01, -2.10097395e-01],
+       [-7.84332820e-03,  6.06306675e-02],
+       [-3.29268487e-02, -7.78594359e-03],
+       [-9.49732882e-02, -8.51695311e-02],
+       [-7.17511886e-03,  2.16503896e-02],
+       [ 1.19042440e-02,  8.39256407e-02],
+       [-1.19748304e-01, -6.61085582e-02],
+       [ 3.64614668e-02,  1.08359831e-01],
+       [-1.11995067e-02,  5.54261054e-02],
+       [-4.19264601e-02, -1.80637938e-02],
+       [ 3.11015116e-02,  8.45084553e-02],
+       [-5.88884348e-02,  3.10344656e-02],
+       [ 4.66458937e-02,  1.20449028e-01],
+       [-1.33773810e-01, -6.44528491e-02],
+       [-2.19096508e-02, -1.48820035e-02],
+       [-6.92407695e-02,  1.18381927e-02],
+       [-1.49920684e-01, -1.01797448e-01],
+       [ 3.50935127e-02,  9.46395959e-02],
+       [-1.06514841e-01,  3.32468372e-02],
+       [ 5.22381923e-02,  2.09255002e-01],
+       [-9.78291636e-03,  5.16745495e-02],
+       [-1.88979911e-01, -1.08610441e-01],
+       [-6.87392895e-03,  1.09435129e-01],
+       [-7.00840055e-02, -5.15364516e-02],
+       [-1.15147424e-01,  6.10574957e-04],
+       [-3.87481938e-02,  5.88888277e-02],
+       [ 2.02380272e-01,  3.27858691e-01],
+       [-1.11730282e-01, -4.15650698e-02],
+       [-2.25324485e-01, -8.63028446e-02],
+       [-1.71844965e-01, -3.64910562e-02],
+       [-1.34187486e-01, -1.91752891e-02],
+       [-3.69540233e-02,  4.78861428e-03],
+       [-1.71381849e-02,  6.51502178e-02],
+       [-7.34114562e-02, -5.91399378e-03],
+       [-5.75917923e-02,  2.30840761e-02],
+       [-2.83006076e-01, -1.91247239e-01],
+       [ 3.33339638e-02,  1.58437139e-01],
+       [-1.02383908e-04,  7.43822169e-02],
+       [-7.87809311e-02,  4.09968178e-02],
+       [ 2.95669284e-02,  1.54609915e-01],
+       [-7.22870987e-02,  5.48372246e-02],
+       [-5.21308086e-02,  1.70071317e-02],
+       [-1.10533170e-02,  9.19588622e-02],
+       [ 3.97323609e-02,  1.58368114e-01],
+       [-1.24743515e-02,  1.95829181e-01],
+       [-1.06918998e-01,  7.76221043e-03],
+       [-1.54485568e-01, -7.40340240e-02],
+       [ 1.05616595e-02,  2.18474363e-01],
+       [-2.22395631e-01, -1.36146301e-01],
+       [-1.81489531e-01, -8.87753841e-02],
+       [-1.84129573e-01, -6.49506023e-02],
+       [-1.08919850e-01,  4.34782382e-02],
+       [-2.07659712e-01, -9.95826726e-02],
+       [-1.64317391e-01, -9.90157199e-02],
+       [-2.17366307e-01, -8.21573550e-02],
+       [-2.00501651e-01, -5.23493411e-02],
+       [-6.69415558e-02,  3.40052099e-03],
+       [-1.75512781e-01, -3.22704912e-03],
+       [-1.09635740e-01,  6.26057227e-02],
+       [-2.22298842e-01, -5.71042539e-02],
+       [-1.63148473e-01,  2.27804526e-02],
+       [-4.32843292e-02,  1.57131884e-01],
+       [-1.21661458e-01,  5.08748426e-02],
+       [-6.42527385e-02,  1.01158312e-01],
+       [-9.27412577e-02,  5.58099383e-02],
+       [-1.12309242e-01,  4.82601944e-02],
+       [-4.20840435e-01, -3.12271903e-01],
+       [-4.47225795e-01, -3.32335854e-01],
+       [-3.18263120e-01, -1.53323402e-01],
+       [-1.46827777e-01,  4.57550492e-02],
+       [-1.50968466e-01,  6.53520474e-02],
+       [-8.50566189e-02,  1.30081139e-01],
+       [-3.63418800e-01, -2.01726736e-01],
+       [-1.15874799e-02,  1.86579304e-01],
+       [-1.93458784e-01, -2.31894059e-03],
+       [-2.71496818e-01, -8.27396961e-02],
+       [-1.22931353e-01,  1.02718820e-01],
+       [-1.46026682e-01,  9.08879159e-02],
+       [-7.52426834e-02,  1.63707623e-01],
+       [-1.47984015e-01,  4.04703515e-02],
+       [ 4.65070861e-02,  3.30241476e-01],
+       [-1.59058886e-01,  2.18147607e-02],
+       [-1.19747836e-01,  9.38204034e-02],
+       [-8.31786090e-02,  1.59862655e-01],
+       [-3.19479989e-01, -1.73621212e-01],
+       [-3.66779452e-01, -2.30871752e-01],
+       [-1.10946990e-01,  9.08230352e-02],
+       [-2.50881443e-01, -5.12294442e-02],
+       [-3.42617513e-01, -1.58245126e-01],
+       [-1.59088411e-01,  6.11266203e-02],
+       [-3.33089958e-01, -1.40550783e-01],
+       [-2.43954898e-01, -3.50303738e-02],
+       [-2.85195092e-01, -5.30848455e-02],
+       [-2.10513258e-01,  2.47873542e-03],
+       [-2.14036128e-01,  2.21380297e-02],
+       [-1.62973038e-01,  3.69459014e-02],
+       [-2.03391840e-01, -6.22392014e-03],
+       [-1.38643396e-01,  1.07828000e-01],
+       [-2.80267536e-01, -1.13638065e-01],
+       [-9.05721250e-02,  1.93273490e-01],
+       [-2.01752757e-01, -1.02596874e-03],
+       [-1.24685642e-01,  1.85071930e-01],
+       [-4.75762876e-02,  1.94107466e-01],
+       [-3.40622437e-01, -1.39322393e-01],
+       [-1.13492608e-01,  1.05437920e-01],
+       [-6.39552493e-02,  2.44371702e-01],
+       [-2.99925697e-01, -1.16541674e-01],
+       [-2.60848014e-01, -4.78559667e-02],
+       [-3.23137294e-01, -2.07652675e-01],
+       [-1.64582588e-01,  9.68426954e-02],
+       [-1.72049671e-01,  3.53261080e-02],
+       [-9.49622383e-02,  1.70828403e-01],
+       [-2.62111852e-01, -6.75953019e-02],
+       [-1.80152267e-01,  7.59976082e-02],
+       [-2.20618804e-01,  5.84237606e-02],
+       [-1.35015023e-01,  8.21808402e-02],
+       [-2.33855646e-01,  3.68576899e-02],
+       [-2.55764093e-01, -7.67785815e-02],
+       [-2.07713387e-01,  1.11056840e-02],
+       [-3.06024517e-01, -5.72233606e-02],
+       [-2.47171048e-01, -3.03819296e-02],
+       [-3.12817885e-01, -9.10078303e-02],
+       [-2.18943570e-01,  2.32440422e-02],
+       [-3.24764505e-01, -1.10606877e-01],
+       [-3.01764891e-01, -9.57408539e-02],
+       [-1.31960468e-01,  1.51405441e-01],
+       [-2.52423963e-01, -5.88956445e-03],
+       [-2.48869988e-01,  2.87761125e-02],
+       [-2.44899626e-01, -4.07311378e-02],
+       [-8.34628090e-02,  2.42983466e-01],
+       [-1.03730613e-01,  2.08529365e-01],
+       [-2.88219544e-01,  1.33028008e-02],
+       [-4.67035204e-01, -2.98208266e-01],
+       [-1.79042376e-01,  1.06909515e-01],
+       [-2.63867207e-01,  3.70872467e-02],
+       [-2.25685235e-01, -2.37556116e-02],
+       [-1.62724863e-01,  1.12118435e-01],
+       [-3.44367801e-01, -1.28612606e-01],
+       [-1.67454351e-01,  8.07816129e-02],
+       [-2.61562817e-01, -3.14053081e-02],
+       [-1.69418827e-01,  1.04624187e-01],
+       [-1.34614191e-01,  1.40006025e-01],
+       [-4.29051279e-01, -2.47508470e-01],
+       [-1.38174491e-01,  1.09114219e-01],
+       [-2.99144867e-01, -6.62619705e-02],
+       [-2.95579028e-01, -3.37591492e-02],
+       [-3.18561486e-01, -9.73338407e-02],
+       [-3.61250904e-01, -1.15886729e-01],
+       [-3.32044882e-01, -6.11303887e-02],
+       [-1.57317658e-01,  1.18466784e-01],
+       [-3.09977928e-01, -4.52763818e-02],
+       [-1.00622226e-01,  2.19879905e-01],
+       [-3.51676939e-01, -6.48617573e-02],
+       [-2.23341311e-01,  8.31520413e-02],
+       [-3.69362695e-01, -1.71252965e-01],
+       [-3.06575565e-01, -3.52454069e-02],
+       [-2.40290065e-01,  6.05946290e-03],
+       [ 5.67066105e-02,  5.01645325e-01],
+       [-3.54483619e-01, -6.16218864e-02],
+       [-4.65709069e-01, -2.80369135e-01],
+       [-3.01121432e-01, -6.87607568e-02],
+       [-3.21471776e-01, -7.65152049e-02],
+       [-3.87699776e-01, -1.66021407e-01],
+       [-3.13322523e-01, -3.56992481e-02],
+       [-8.92380324e-02,  2.55526813e-01],
+       [ 8.98157600e-02,  4.92599725e-01],
+       [-3.76611450e-01, -1.40645833e-01],
+       [-1.86373370e-01,  1.66924362e-01],
+       [-1.16842412e-01,  2.40171317e-01],
+       [-1.55448349e-01,  1.48524219e-01],
+       [-3.25410462e-01, -7.13260785e-02],
+       [-8.71931257e-02,  2.69296075e-01],
+       [-3.04506372e-01, -5.96909591e-02],
+       [-3.47694704e-01, -3.21252583e-02],
+       [-2.92433178e-01, -3.69588888e-02],
+       [-2.65236978e-01, -1.40200422e-02],
+       [-3.51833789e-01, -8.83994140e-02],
+       [-2.56940587e-01,  2.74901625e-02],
+       [-3.56834903e-01, -1.83670120e-02],
+       [-3.43163744e-01, -7.03134315e-02],
+       [-4.45192325e-01, -1.95780000e-01],
+       [-3.50543041e-01, -5.52201131e-02],
+       [-1.31063595e-01,  2.52461026e-01],
+       [-2.31129012e-01,  7.73244945e-02],
+       [-3.29540858e-01, -4.31221618e-02],
+       [-1.41396698e-01,  1.85345975e-01],
+       [-3.30952653e-01,  6.93052200e-03],
+       [-2.48497842e-01,  7.50795021e-02],
+       [-3.31869221e-01, -1.84607241e-02],
+       [-3.32202777e-01, -4.26859944e-02],
+       [-1.76116955e-01,  1.80304151e-01],
+       [-3.73468537e-01, -1.13454422e-01],
+       [-2.89983513e-01,  7.71112224e-03],
+       [-2.65168411e-01,  2.57546493e-02],
+       [-2.15798217e-01,  1.12891243e-01]])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>explained_variance <span class="op">=</span> pca.explained_variance_ratio_</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Explained variance ratio:"</span>, explained_variance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>Explained variance ratio: [0.83360005 0.1513503 ]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pl.scatter(batter[:, <span class="dv">0</span>], batter[:, <span class="dv">1</span>])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>pl.xlabel(<span class="st">'Principal Component 1'</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>pl.ylabel(<span class="st">'Principal Component 2'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>pl.title(<span class="st">'PCA Results'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>pl.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-17-output-1.png" width="611" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>component_loadings <span class="op">=</span> pca.components_</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Principal component loadings:"</span>, component_loadings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal component loadings: [[ 0.65699203  0.48612356  0.57623377]
+ [-0.5063218   0.85082336 -0.14049142]]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> silhouette_score</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Your data</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> batter  <span class="co"># Your data points</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>best_eps <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>best_min_samples <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>best_score <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> eps <span class="kw">in</span> np.arange(<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">0.1</span>):  <span class="co"># Adjust the range as needed</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> min_samples <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">11</span>):  <span class="co"># Adjust the range as needed</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span>eps, min_samples<span class="op">=</span>min_samples)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>        labels <span class="op">=</span> dbscan.fit_predict(X)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(<span class="bu">set</span>(labels)) <span class="op">&gt;</span> <span class="dv">1</span>:  <span class="co"># Ensure more than one cluster is formed</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> silhouette_score(X, labels)</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> score <span class="op">&gt;</span> best_score:</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>                best_score <span class="op">=</span> score</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>                best_eps <span class="op">=</span> eps</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>                best_min_samples <span class="op">=</span> min_samples</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best eps: </span><span class="sc">{</span>best_eps<span class="sc">}</span><span class="ss">, Best min_samples: </span><span class="sc">{</span>best_min_samples<span class="sc">}</span><span class="ss">, Best Silhouette Score: </span><span class="sc">{</span>best_score<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best eps: 0.2, Best min_samples: 9, Best Silhouette Score: 0.6160671083676901</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize DBSCAN</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>dbscan <span class="op">=</span> DBSCAN(eps<span class="op">=</span><span class="fl">0.2</span>, min_samples<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit DBSCAN on the PCA-transformed data</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>cluster_labels <span class="op">=</span> dbscan.fit_predict(batter)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>pl.scatter(batter[:, <span class="dv">0</span>], batter[:, <span class="dv">1</span>], c<span class="op">=</span>cluster_labels, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>pl.xlabel(<span class="st">'Principal Component 1'</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>pl.ylabel(<span class="st">'Principal Component 2'</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>pl.title(<span class="st">'DBSCAN Clustering Results'</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>pl.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-20-output-1.png" width="611" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'player' contains the player names and 'cluster_labels' contains the cluster assignments</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new DataFrame to combine the results</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>new_batsman <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: batter[:, <span class="dv">0</span>], <span class="st">'y'</span>: batter[:, <span class="dv">1</span>], <span class="st">'cluster'</span>: cluster_labels, <span class="st">'player'</span>: player})</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the resulting DataFrame</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>new_batsman</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+<th data-quarto-table-cell-role="th">player</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1.036954</td>
+<td>-0.269941</td>
+<td>0</td>
+<td>RT Ponting</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1.120627</td>
+<td>-0.212675</td>
+<td>0</td>
+<td>JH Kallis</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>0.972643</td>
+<td>-0.241727</td>
+<td>0</td>
+<td>R Dravid</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>0.812778</td>
+<td>-0.326137</td>
+<td>0</td>
+<td>AN Cook</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1.001332</td>
+<td>-0.113314</td>
+<td>0</td>
+<td>KC Sangakkara</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">306</td>
+<td>-0.176117</td>
+<td>0.180304</td>
+<td>0</td>
+<td>CJL Rogers</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">307</td>
+<td>-0.373469</td>
+<td>-0.113454</td>
+<td>0</td>
+<td>KOA Powell</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">308</td>
+<td>-0.289984</td>
+<td>0.007711</td>
+<td>0</td>
+<td>AC Hudson</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">309</td>
+<td>-0.265168</td>
+<td>0.025755</td>
+<td>0</td>
+<td>KL Rahul</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">310</td>
+<td>-0.215798</td>
+<td>0.112891</td>
+<td>0</td>
+<td>DN Sardesai</td>
+</tr>
+</tbody>
+</table>
+
+<p>311 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with cluster labels</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>pl.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.scatterplot(x<span class="op">=</span><span class="st">"x"</span>, y<span class="op">=</span><span class="st">"y"</span>, hue<span class="op">=</span><span class="st">"cluster"</span>, data<span class="op">=</span>new_batsman, palette<span class="op">=</span><span class="st">"viridis"</span>, s<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels for individual data points</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y, player, cluster <span class="kw">in</span> <span class="bu">zip</span>(new_batsman[<span class="st">'x'</span>], new_batsman[<span class="st">'y'</span>], new_batsman[<span class="st">'player'</span>], new_batsman[<span class="st">'cluster'</span>]):</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    pl.text(x, y, player, fontsize<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the plot limits and labels</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>pl.xlabel(<span class="st">"Principal Component 1"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>pl.ylabel(<span class="st">"Principal Component 2"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the legend</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>pl.legend(title<span class="op">=</span><span class="st">'Cluster'</span>, loc<span class="op">=</span><span class="st">'upper right'</span>, labels<span class="op">=</span>[<span class="ss">f'Cluster </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> label <span class="kw">in</span> new_batsman[<span class="st">'cluster'</span>].unique()])</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>pl.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-22-output-1.png" width="837" height="515"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the style</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the "average" values</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>batsman[<span class="st">'avg_normalized'</span>] <span class="op">=</span> scaler.fit_transform(batsman[[<span class="st">'avg'</span>]])</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with cluster labels and manually set marker size based on "average" values</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.scatterplot(x<span class="op">=</span><span class="st">"x"</span>, y<span class="op">=</span><span class="st">"y"</span>, hue<span class="op">=</span><span class="st">"cluster"</span>, data<span class="op">=</span>new_batsman, palette<span class="op">=</span><span class="st">"viridis"</span>, sizes<span class="op">=</span>(<span class="dv">50</span>, <span class="dv">500</span>), size<span class="op">=</span>batsman[<span class="st">'avg_normalized'</span>])</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels for individual data points</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y, player, cluster <span class="kw">in</span> <span class="bu">zip</span>(new_batsman[<span class="st">'x'</span>], new_batsman[<span class="st">'y'</span>], new_batsman[<span class="st">'player'</span>], new_batsman[<span class="st">'cluster'</span>]):</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    plt.text(x, y, player, fontsize<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the plot limits and labels</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Principal Component 1"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Principal Component 2"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the legend</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">'Cluster'</span>, loc<span class="op">=</span><span class="st">'best'</span>, labels<span class="op">=</span>[<span class="ss">f'Cluster </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> label <span class="kw">in</span> new_batsman[<span class="st">'cluster'</span>].unique()])</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-23-output-1.png" width="834" height="518"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the style</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the "average" values</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>batsman[<span class="st">'100_normalized'</span>] <span class="op">=</span> scaler.fit_transform(batsman[[<span class="st">'100'</span>]])</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with cluster labels and manually set marker size based on "average" values</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.scatterplot(x<span class="op">=</span><span class="st">"x"</span>, y<span class="op">=</span><span class="st">"y"</span>, hue<span class="op">=</span><span class="st">"cluster"</span>, data<span class="op">=</span>new_batsman, palette<span class="op">=</span><span class="st">"viridis"</span>, sizes<span class="op">=</span>(<span class="dv">50</span>, <span class="dv">500</span>), size<span class="op">=</span>batsman[<span class="st">'100_normalized'</span>])</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels for individual data points</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y, player, cluster <span class="kw">in</span> <span class="bu">zip</span>(new_batsman[<span class="st">'x'</span>], new_batsman[<span class="st">'y'</span>], new_batsman[<span class="st">'player'</span>], new_batsman[<span class="st">'cluster'</span>]):</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    plt.text(x, y, player, fontsize<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the plot limits and labels</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(ylim<span class="op">=</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Principal Component 1"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Principal Component 2"</span>, fontsize<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the legend</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">'Cluster'</span>, loc<span class="op">=</span><span class="st">'upper right'</span>, labels<span class="op">=</span>[<span class="ss">f'Cluster </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> label <span class="kw">in</span> new_batsman[<span class="st">'cluster'</span>].unique()])</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-24-output-1.png" width="834" height="518"></p>
 </div>
 </div>
 

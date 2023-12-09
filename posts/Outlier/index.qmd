@@ -38,8 +38,8 @@ data.describe(include='object')
 ```
 
 ```{python}
-cricket=data[["Player","Span","Mat","Inn","Runs","Highest_Score","Avg","100","50"]].copy()
-cricket.columns=["player","span","mat","inn","runs","HS","avg","100","50"]
+cricket=data[["Player","Span","Mat","Inn","Runs","Avg","100","50"]].copy()
+cricket.columns=["player","span","mat","inn","runs","avg","100","50"]
 cricket.head()
 ```
 
