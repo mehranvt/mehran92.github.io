@@ -3,6 +3,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/Classification/index.html",
+      "/posts/Clustering/index.html",
       "/posts/Outlier/index.html",
       "/posts/post-with-code/index.html",
       "/posts/welcome/index.html"
