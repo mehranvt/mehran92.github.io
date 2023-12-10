@@ -165,7 +165,6 @@ plt.show()
 ```
 
 ```{python}
-import pandas as pd
 
 # Accessing coefficients for Polynomial Regression
 poly_coefficients = poly_model.named_steps['linearregression'].coef_
@@ -213,6 +212,6 @@ plt.show()
 
 #Children (encoded_1, encoded_2, encoded_3, encoded_4, encoded_5): These coefficients are negative, indicating that having more children is associated with lower predicted charges.
 
-Smoker (encoded_yes): The coefficient is positive suggesting that being a smoker is strongly associated with higher predicted charges.
+#Smoker (encoded_yes): The coefficient is positive suggesting that being a smoker is strongly associated with higher predicted charges.
 
-Region (encoded_northwest, encoded_southeast, encoded_southwest): These coefficients are positive, with the highest coefficient for 'encoded_northwest' indicating that individuals from the northwest region tend to have higher predicted charges.
+#Region (encoded_northwest, encoded_southeast, encoded_southwest): These coefficients are positive, with the highest coefficient for 'encoded_northwest' indicating that individuals from the northwest region tend to have higher predicted charges.
