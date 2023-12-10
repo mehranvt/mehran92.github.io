@@ -6,31 +6,27 @@ categories: [code, analysis]
 image: "image.jpg"
 ---
 
-This is a post about probability of survival in the Titanic disaster.
-
-Importing the libraries required:
-
 ```{python}
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.metrics import roc_curve, auc
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
+from sklearn.metrics import precision_recall_curve, average_precision_score
+
 ```
 
 ```{python}
-# Load the Titanic dataset
+# Load the Titanic dataset 
 titanic_df = pd.read_csv('titanic.csv')
 ```
 
 ```{python}
 # Let's assume 'Survived' is the target variable
 # Drop irrelevant columns or handle missing data as needed
-features = ['PassengerId','Survived', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch','Fare']
+features = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare']
 target = 'Survived'
 ```
 
@@ -40,29 +36,9 @@ titanic_df['Sex'] = titanic_df['Sex'].map({'male': 0, 'female': 1})
 ```
 
 ```{python}
+
 # Handle missing values
 titanic_df = titanic_df.dropna(subset=features + [target])
-```
-
-```{python}
-# Extract titles from 'Name' and create a new 'Title' column
-titanic_df['Title'] = titanic_df['Name'].apply(lambda x: x.split(',')[1].split('.')[0].strip())
-```
-
-```{python}
-# Drop 'Name' column
-titanic_df = titanic_df.drop(columns=['Name'])
-```
-
-```{python}
-# One-hot encode categorical features
-categorical_features = ['Title', 'Ticket', 'Cabin', 'Embarked']
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('cat', OneHotEncoder(), categorical_features)
-    ],
-    remainder='passthrough'
-)
 ```
 
 ```{python}
@@ -78,21 +54,30 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 ```
 
 ```{python}
-# Train a logistic regression model
+# Train a Gaussian Naive Bayes model
 model = GaussianNB()
 model.fit(X_train, y_train)
+
 ```
 
 ```{python}
 # Make predictions on the test set
 y_pred = model.predict(X_test)
 y_pred_proba = model.predict_proba(X_test)[:, 1]
+
+```
+
+```{python}
+# Print actual, predicted, and probability values
+result_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred, 'Probability': y_pred_proba})
+print(result_df)
 ```
 
 ```{python}
 # Evaluate the model
 accuracy = accuracy_score(y_test, y_pred)
 classification_rep = classification_report(y_test, y_pred)
+
 ```
 
 ```{python}
@@ -103,16 +88,11 @@ print("Classification Report:\n", classification_rep)
 
 ```{python}
 # Plot the ROC curve and display the AUC score
-from sklearn.metrics import roc_curve, auc
-from sklearn.metrics import precision_recall_curve, average_precision_score
-
-
 fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
 roc_auc = auc(fpr, tpr)
+```
 
-precision, recall, _ = precision_recall_curve(y_test, y_pred_proba)
-average_precision = average_precision_score(y_test, y_pred_proba)
-
+```{python}
 # Plot ROC curve
 plt.figure(figsize=(12, 5))
 
@@ -123,9 +103,13 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('Receiver Operating Characteristic (ROC) Curve')
 plt.legend(loc="lower right")
+```
 
+```{python}
 # Plot precision-recall curve
 plt.subplot(1, 2, 2)
+precision, recall, _ = precision_recall_curve(y_test, y_pred_proba)
+average_precision = average_precision_score(y_test, y_pred_proba)
 plt.step(recall, precision, color='b', alpha=0.2, where='post')
 plt.fill_between(recall, precision, step='post', alpha=0.2, color='b')
 plt.xlabel('Recall')
@@ -136,7 +120,9 @@ plt.title('Precision-Recall curve: AP={0:0.2f}'.format(average_precision))
 
 plt.tight_layout()
 plt.show()
+```
 
+```{python}
 # Plot probability distribution for positive class
 plt.figure(figsize=(8, 6))
 plt.hist(y_pred_proba[y_test == 1], bins=50, color='blue', alpha=0.7, label='Survived (1)')
@@ -146,5 +132,4 @@ plt.ylabel('Frequency')
 plt.title('Probability Distribution for Positive Class')
 plt.legend(loc='upper right')
 plt.show()
-
 ```
