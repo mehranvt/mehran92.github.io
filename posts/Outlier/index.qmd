@@ -11,16 +11,13 @@ Importing libraries
 ```{python}
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as pl
+import matplotlib.pyplot as plt
 import seaborn as sns
 ```
 
 Read the data
 
 ```{python}
-import pandas as pd
-
-# Read the data
 data = pd.read_csv('Cricket_data.txt', sep='\t')
 
 # Display the first few rows of the data
@@ -93,7 +90,7 @@ batsman
 
 ```{python}
 #sns.pairplot(batsman)
-#pl.show()
+#plt.show()
 ```
 
 ```{python}
@@ -131,11 +128,11 @@ print("Explained variance ratio:", explained_variance)
 ```
 
 ```{python}
-pl.scatter(batter[:, 0], batter[:, 1])
-pl.xlabel('Principal Component 1')
-pl.ylabel('Principal Component 2')
-pl.title('PCA Results')
-pl.show()
+plt.scatter(batter[:, 0], batter[:, 1])
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('PCA Results')
+plt.show()
 
 ```
 
@@ -180,11 +177,11 @@ dbscan = DBSCAN(eps=0.2, min_samples=2)
 cluster_labels = dbscan.fit_predict(batter)
 
 
-pl.scatter(batter[:, 0], batter[:, 1], c=cluster_labels, cmap='viridis')
-pl.xlabel('Principal Component 1')
-pl.ylabel('Principal Component 2')
-pl.title('DBSCAN Clustering Results')
-pl.show()
+plt.scatter(batter[:, 0], batter[:, 1], c=cluster_labels, cmap='viridis')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('DBSCAN Clustering Results')
+plt.show()
 ```
 
 ```{python}
@@ -198,23 +195,23 @@ new_batsman
 
 ```{python}
 # Create a scatter plot with cluster labels
-pl.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 6))
 ax = sns.scatterplot(x="x", y="y", hue="cluster", data=new_batsman, palette="viridis", s=100)
 
 # Add labels for individual data points
 for x, y, player, cluster in zip(new_batsman['x'], new_batsman['y'], new_batsman['player'], new_batsman['cluster']):
-    pl.text(x, y, player, fontsize=10, alpha=0.8)
+    plt.text(x, y, player, fontsize=10, alpha=0.8)
 
 # Set the plot limits and labels
 ax.set(ylim=(-3, 3))
-pl.xlabel("Principal Component 1", fontsize=15)
-pl.ylabel("Principal Component 2", fontsize=15)
+plt.xlabel("Principal Component 1", fontsize=15)
+plt.ylabel("Principal Component 2", fontsize=15)
 
 # Show the legend
-pl.legend(title='Cluster', loc='upper right', labels=[f'Cluster {label}' for label in new_batsman['cluster'].unique()])
+plt.legend(title='Cluster', loc='upper right', labels=[f'Cluster {label}' for label in new_batsman['cluster'].unique()])
 
 # Display the plot
-pl.show()
+plt.show()
 ```
 
 ```{python}
@@ -251,8 +248,6 @@ plt.show()
 ```
 
 ```{python}
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 
 # Set the style
@@ -268,7 +263,7 @@ ax = sns.scatterplot(x="x", y="y", hue="cluster", data=new_batsman, palette="vir
 
 # Add labels for individual data points
 for x, y, player, cluster in zip(new_batsman['x'], new_batsman['y'], new_batsman['player'], new_batsman['cluster']):
-    plt.text(x, y, player, fontsize=10, alpha=0.8)
+    plt.text (x, y, player, fontsize=10, alpha=0.8)
 
 # Set the plot limits and labels
 ax.set(ylim=(-3, 3))
