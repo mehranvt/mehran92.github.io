@@ -6,6 +6,8 @@ categories: [code, analysis]
 image: "image.jpg"
 ---
 
+Sir Don Bradman and Sachin Tendulkar are widely considered as two of the most prolific batsmen of the cricketing world. Among hundreds and thousands of professional cricketers, they have garnered special god-like status among the cricket fans. Here, we will see from the plots and codes that they truly are something out of the ordinary.
+
 Importing libraries
 
 ```{python}
