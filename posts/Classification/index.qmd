@@ -8,15 +8,12 @@ image: "image.jpg"
 
 **Classification Post**
 
-Import the required librariesundefined
+Import the required libraries
 
 ```{python}
 import pandas as pd
-```
-
-```{python}
 import numpy as np
-import matplotlib.pyplot as pl
+import matplotlib.pyplot as plt
 import seaborn as sns
 
 ```
@@ -27,8 +24,7 @@ Read data from file and identify null values
 data=pd.read_csv('athlete_events.csv', index_col="ID")
 ```
 
-```{data.apply(pd.isnull).sum()/data.shape[0]}
-```
+`{data.apply(pd.isnull).sum()/data.shape[0]}`
 
 ```{python}
 athletes= data[["Team","Sex", "Season","Sport","Medal"]].copy()
@@ -133,8 +129,8 @@ X_test.shape
 
 ```{python}
 sns.countplot(data=players, x='target')
-pl.title('Distribution of Target')
-pl.show()
+plt.title('Distribution of Target')
+plt.show()
 ```
 
 ```{python}
@@ -170,9 +166,6 @@ print("Classification Report:\n", report)
 ```
 
 ```{python}
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
@@ -207,18 +200,16 @@ report = classification_report(y_test, y_pred, output_dict=True)
 players_report = pd.DataFrame(report).transpose()
 
 # Create a horizontal bar chart using Seaborn
-pl.figure(figsize=(8, 4))
+plt.figure(figsize=(8, 4))
 sns.set(style="whitegrid")
 sns.set_palette("pastel")
 ax = sns.barplot(x=players_report['f1-score'], y=players_report.index, orient="h")
 ax.set(xlabel='F1-Score', ylabel='Metric')
-pl.title('Classification Report Metrics')
-pl.show()
+plt.title('Classification Report Metrics')
+plt.show()
 ```
 
 ```{python}
-import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_curve, roc_curve, auc
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
