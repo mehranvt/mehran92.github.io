@@ -11,7 +11,7 @@ Importing libraries
 ```{python}
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as pl
+import matplotlib.pyplot as plt
 import seaborn as sns
 ```
 
@@ -42,7 +42,7 @@ County = air['County'].tolist()
 
 ```{python}
 #sns.pairplot(air)
-#pl.show()
+#plt.show()
 ```
 
 ```{python}
@@ -93,14 +93,14 @@ distances, _ = nn_model.kneighbors(air)
 
 # Sort the distances and create a k-distance plot
 sorted_distances = np.sort(distances[:, -1])  # Sort by the distance to the k-th neighbor
-pl.plot(np.arange(1, len(sorted_distances) + 1), sorted_distances)
-pl.xlabel("Data Point Index")
-pl.ylabel(f"Distance to {k}-th Nearest Neighbor")
-pl.title(f"{k}-Distance Plot")
-pl.grid(True)
+plt.plot(np.arange(1, len(sorted_distances) + 1), sorted_distances)
+plt.xlabel("Data Point Index")
+plt.ylabel(f"Distance to {k}-th Nearest Neighbor")
+plt.title(f"{k}-Distance Plot")
+plt.grid(True)
 
 # Display the plot
-pl.show()
+plt.show()
 ```
 
 ```{python}
@@ -145,13 +145,13 @@ cluster_labels = dbscan.labels_
 
 
 # Plot the clusters using the first two principal components
-pl.figure(figsize=(10, 6))
-pl.scatter(new_air[:, 0], new_air[:, 1], c=cluster_labels, cmap='viridis')
-pl.xlabel("Principal Component 1")
-pl.ylabel("Principal Component 2")
-pl.title("DBSCAN Clustering Results after PCA")
-pl.colorbar()
-pl.show()
+plt.figure(figsize=(10, 6))
+plt.scatter(new_air[:, 0], new_air[:, 1], c=cluster_labels, cmap='viridis')
+plt.xlabel("Principal Component 1")
+plt.ylabel("Principal Component 2")
+plt.title("DBSCAN Clustering Results after PCA")
+plt.colorbar()
+plt.show()
 ```
 
 ```{python}
@@ -164,20 +164,20 @@ data_with_clusters = pd.DataFrame({
 })
 
 # Create a box plot for PCA Component 1 by cluster
-pl.figure(figsize=(12, 6))
+plt.figure(figsize=(12, 6))
 sns.boxplot(x='Cluster', y='PCA Component 1', data=data_with_clusters)
-pl.xlabel('Cluster')
-pl.ylabel('PCA Component 1')
-pl.title('Box Plot of PCA Component 1 by Cluster')
-pl.show()
+plt.xlabel('Cluster')
+plt.ylabel('PCA Component 1')
+plt.title('Box Plot of PCA Component 1 by Cluster')
+plt.show()
 
 # Create a box plot for PCA Component 2 by cluster
-pl.figure(figsize=(12, 6))
+plt.figure(figsize=(12, 6))
 sns.boxplot(x='Cluster', y='PCA Component 2', data=data_with_clusters)
-pl.xlabel('Cluster')
-pl.ylabel('PCA Component 2')
-pl.title('Box Plot of PCA Component 2 by Cluster')
-pl.show()
+plt.xlabel('Cluster')
+plt.ylabel('PCA Component 2')
+plt.title('Box Plot of PCA Component 2 by Cluster')
+plt.show()
 ```
 
 ```{python}
@@ -237,9 +237,6 @@ for cluster in unique_clusters:
 ```
 
 ```{python}
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 # Assuming you have cluster labels, PCA-transformed data, and State information
 # Create a DataFrame that includes cluster labels, PCA components, and State
 data_with_clusters = pd.DataFrame({
