@@ -3,7 +3,7 @@ title: "Regression"
 author: "Mehran Islam"
 date: "2023-12-07"
 categories: [code, analysis]
-image: "image.jpg"
+image: "regression.jpg"
 ---
 
 This is a post with executable code.
