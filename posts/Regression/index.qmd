@@ -6,7 +6,7 @@ categories: [code, analysis]
 image: "regression.jpg"
 ---
 
-This is a post with executable code.
+This is a post that looks at linear and non-linear regression.
 
 ```{python}
 #importing the needed libraries
