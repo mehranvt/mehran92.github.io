@@ -3,7 +3,7 @@ title: "Classification"
 author: "Mehran Islam"
 date: "2023-12-07"
 categories: [code, analysis]
-image: "image.jpg"
+image: "class.jpg"
 ---
 
 **Classification Post**
