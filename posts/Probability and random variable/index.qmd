@@ -3,7 +3,7 @@ title: "Probability and random variable"
 author: "Mehran Islam"
 date: "2023-12-07"
 categories: [code, analysis]
-image: "class.jpg"
+image: "probability.jpg"
 ---
 
 This code discusses the probability model for the Titanic disaster.
